@@ -70,7 +70,7 @@
                         <span class="text">Category Management</span> </a>
                 </li>
                 <li class="menu-item active">
-                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="admin/orders"> <i class="icon material-icons md-stars"></i>
                         <span class="text">Order Management</span> </a>
                 </li>
                 <li class="menu-item ">
@@ -174,7 +174,7 @@
                                         <% } %>
                                         <td>₹<%= order[i].totalAmount %></td>
                                         <td>
-                                            <a class="btn btn-success" href="/editOrders/<%= order[i]._id %>" class="btn-small d-block">edit</a>
+                                            <a class="btn btn-success" href="/admin/editOrders/<%= order[i]._id %>" class="btn-small d-block">edit</a>
                                             <% if (order[i].return) { %>
                                                 <span class="red-circle"></span>
                                             <% } %>

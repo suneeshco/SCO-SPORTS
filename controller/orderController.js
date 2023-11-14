@@ -50,7 +50,9 @@ var instance = new Razorpay({
         }
         res.render("checkout", { category: category, productData: productData, userData: userData, items: customer.cart, cartTotal: cartTotal, priceArray: priceArray ,coupons})
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -61,7 +63,9 @@ const orderSuccessfulPage = async (req, res) => {
 
         res.render("orderSuccessful", { orderId: id })
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -124,6 +128,7 @@ const  placeOrder = async (req, res) => {
         const item = []
 
         const outOfStockItems = [];
+        console.log(outOfStockItems,"qqqqqqqqqqqqqq");
 
         for (let i = 0; i < items.length; i++) {
             const productId = items[i].productId;
@@ -133,8 +138,7 @@ const  placeOrder = async (req, res) => {
             const product = await Product.findById(productId);
 
             if (product.stock >= quantity) {
-                // product.stock -= quantity
-                // await product.save()
+                
                 item.push({
                     productId: productId,
                     quantity: quantity,
@@ -145,6 +149,8 @@ const  placeOrder = async (req, res) => {
                 outOfStockItems.push(productId)
             }
         }
+        console.log(item,"iiiiiiiiiiiiiii");
+        console.log(outOfStockItems.length,"oooooooooo");
         if (outOfStockItems.length === 0) {
             const customerData = JSON.parse(req.body.customer);
 
@@ -178,9 +184,10 @@ const  placeOrder = async (req, res) => {
             const data = await order.save()
 
             function generateRazorpay(id,total){
+                console.log(totalAmount,"55555555")
                 return new Promise ((resolve,reject)=>{
                     var options = {
-                        amount: total*100,  // amount in the smallest currency unit
+                        amount: totalAmount*100,  // amount in the smallest currency unit
                         currency: "INR",
                         receipt: id
                       };
@@ -197,17 +204,25 @@ const  placeOrder = async (req, res) => {
                     for (let i = 0; i < items.length; i++) {
                         const productId = items[i].productId;
                         const quantity = items[i].quantity;
-
-                        const product = await Product.findById(productId)
-                        product.stock -= quantity
-                        await product.save()
+                    
+                        // Check if there's enough stock for the product
+                        const product = await Product.findById(productId);
+                    
+                        if (product.stock >= quantity) {
+                            // Sufficient stock, update the stock for the product
+                            product.stock -= quantity;
+                            await product.save();
+                        } else {
+                            // Insufficient stock for this product
+                            return res.json({ error: 'Insufficient stock for some items in your cart' });
+                        }
                     }
                     const success = await Customer.updateMany({ _id: customerData._id }, { $set: { cart: [] } });
                     const succ=await Order.updateMany({_id:data._id},{$set:{paymentStatus:true}})
                     res.json({codSuccess:true,ordered:data._id})
                 }else{
                     generateRazorpay(data._id,data.totalAmount).then((response)=>{
-                        res.json(response)
+                        res.json({responsed:response})
                     })
                 }
             }
@@ -216,7 +231,10 @@ const  placeOrder = async (req, res) => {
         }
 
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        console.log(error)
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 

@@ -17,7 +17,7 @@ app.use(express.static("public"))
 app.use('/brand_images',express.static("brand_images"))
 
 app.use("/",userRoute)
-app.use("/",adminRoute)
+app.use("/admin",adminRoute)
 
 
 app.listen(port,()=>{

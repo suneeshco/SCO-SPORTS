@@ -770,8 +770,7 @@ li {
                 method:'POST',
                 data:{code:couponCode,cartTotal:'<%=cartTotal%>' ,userId:'<%=userData._id%>'},
                 success:(response)=>{
-                    if(response.grandTotal){
-                        
+                    if(response.grandTotal){                        
                         document.getElementById('product-grandtotal').innerHTML=response.grandTotal
                         document.getElementById('discount').innerHTML=response.discount
                         Swal.fire({
@@ -799,7 +798,7 @@ li {
                                 title: 'Warning',
                                 text: response.noCoupon,
                                 icon: 'warning'
-                            });
+                        });
                     }
                 }
             })
@@ -809,34 +808,33 @@ li {
         document.getElementById('placeForm').addEventListener('click', function (event) {
             event.preventDefault();
             <% if (items.length < 1) { %>
-                // Cart is empty, show an error message or take appropriate action
                 Swal.fire({
                     title: 'Cart is empty',
                     text: 'Please add items to your cart before placing an order.',
                     icon: 'error'
                 });
             <% } else { %>
-            var formData = $('#placeOrder').serialize();
-
+                var formData = $('#placeOrder').serialize();
                 $.ajax({
                     type: "POST",
                     url: "/placeOrder", // Your form's action URL
                     data: formData,
                     success: (response) => {
-                        if (response.codSuccess) {
-                            window.location.href = `/orderSuccessful/${response.ordered}`
-                        } else {
-                            razorpayPayment(response)
-                        }
-
                         if (response.error) {
-                            // Display a SweetAlert with a custom title and icon
                             Swal.fire({
                                 title: 'Warning',
                                 text: response.error,
                                 icon: 'warning'
                             });
                         }
+                        if(response.codSuccess) {
+                            window.location.href = `/orderSuccessful/${response.ordered}`
+                        }
+                        if(response.responsed){
+                            razorpayPayment(response.responsed)
+                        }
+
+                        
 
                     }
                 })

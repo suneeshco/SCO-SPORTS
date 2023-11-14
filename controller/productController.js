@@ -106,7 +106,9 @@ let pages=req.query.pages
         res.render("shopAll", { category: category, homeData: searchResults, userData: userData,page:page,searchQuery:searchQuery,categ:categ,pages:pages })
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -124,7 +126,10 @@ const productByCategory = async (req, res) => {
         res.render("shopAll", { category: category, homeData: homeData, user: user, userData: userData ,page: page})
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -173,7 +178,9 @@ const loadSearchItems = async (req, res) => {
         res.render("shopAll",{category:category,userData:userData,homeData:searchResults,page:page,searchQuery:searchQuery,categ:categ,pages:pages,sort:sort})
     } catch (error) {
         console.error('Search error:', error);
-        res.status(500).json({ error: 'An error occurred during the search.' });
+        const statusCode = 500;
+        const errorMessage = 'An error occurred during the search. Please try again later.';
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 

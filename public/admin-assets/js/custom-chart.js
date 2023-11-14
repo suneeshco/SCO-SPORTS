@@ -142,24 +142,24 @@
     }
 
     // Make an initial AJAX request to get the default data (monthly data)
-    fetchData('/fetchData/month', function (monthlyData) {
+    fetchData('/admin/fetchData/month', function (monthlyData) {
         updateChart(monthlyData);
     });
 
     $('#dailyButton').on('click', function () {
-        fetchData('/fetchData/week', function (dailyData) {
+        fetchData('/admin/fetchData/week', function (dailyData) {
             updateChart(dailyData);
         });
     });
 
     $('#monthlyButton').on('click', function () {
-        fetchData('/fetchData/month', function (monthlyData) {
+        fetchData('/admin/fetchData/month', function (monthlyData) {
             updateChart(monthlyData);
         });
     });
 
     $('#yearlyButton').on('click', function () {
-        fetchData('/fetchData/year', function (yearlyData) {
+        fetchData('/admin/fetchData/year', function (yearlyData) {
             updateChart(yearlyData);
         });
     });

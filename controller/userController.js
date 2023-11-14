@@ -41,7 +41,8 @@ const loadUserLogin = async (req, res) => {
 
 
 const insertUser = async (req, res, next) => {
-    const category = await Category.find({ list: true })
+    try {
+        const category = await Category.find({ list: true })
     const checkEmail = await Customer.findOne({ email: req.body.email })
     const ref=req.body.referral
     const user=null
@@ -70,6 +71,12 @@ const insertUser = async (req, res, next) => {
         req.session.temp = user
         res.redirect("/sentOtp")
     }
+    } catch (error) {
+        console.log(error)
+        const errorMessage = "Internal Server Error";
+        return res.status(500).render("errorPage", { statusCode: 500, errorMessage });
+    }
+    
 
 }
 
@@ -77,8 +84,16 @@ const insertUser = async (req, res, next) => {
 
 
 const loadUserSignUp = async (req, res) => {
-    const category = await Category.find({ list: true })
+    try {
+        const category = await Category.find({ list: true })
     res.render("userSignUp", { category: category })
+    } catch (error) {
+     console.log(error); 
+     const statusCode = 500;
+     const errorMessage = 'An error occurred while loading the sign-up page. Please try again later.';
+     res.status(statusCode).render('errorPage', { statusCode, errorMessage });
+    }
+    
 }
 
 
@@ -136,6 +151,9 @@ const sendOtp = async (req, res) => {
         transporter.sendMail(mailOptions, function (err, info) {
             if (err) {
                 console.error("Error sending email: ", err);
+                const statusCode = 500;
+                const errorMessage = "Failed to send OTP email";
+                res.status(statusCode).render('errorPage', { statusCode, errorMessage });
                 return otpCode
             } else {
                 console.log("Email sent: " + info.response);
@@ -145,14 +163,23 @@ const sendOtp = async (req, res) => {
 
     } catch (error) {
         console.error("Error: ", error);
-        return res.status(500).json({ message: "Failed to send OTP email" });
+        const statusCode = 500;
+        const errorMessage = "Failed to send OTP email";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 };
 
 
 const otp = async (req, res) => {
-    const category = await Category.find({ list: true })
+    try {
+        const category = await Category.find({ list: true })
     res.render("otpPage", { category: category })
+    } catch (error) {
+        const statusCode = 500;
+        const errorMessage = "Something went wrong";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
+    }
+    
 }
 
 function referralGenerator(){
@@ -204,8 +231,15 @@ const verifyOtp = async (req, res) => {
 
 
 const loginOtp = async (req, res) => {
-    const category = await Category.find({ list: true })
-    res.render("userLoginOtp", { category: category })
+    try {
+        const category = await Category.find({ list: true })
+        res.render("userLoginOtp", { category: category })
+    } catch (error) {
+        const statusCode = 500;
+        const errorMessage = "something went wrong";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
+    }
+   
 }
 
 var OTP
@@ -244,7 +278,9 @@ const sendOtpLogin = async (req, res) => {
 
     } catch (error) {
         console.error("Error: ", error);
-        return res.status(500).json({ message: "Failed to send OTP email" });
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 };
 
@@ -291,7 +327,9 @@ const forgotPasswordPage1 = async (req, res) => {
         res.render("forgotPassword1", { category: category })
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
 
     }
 }
@@ -340,7 +378,9 @@ const forgotPassword1 = async (req, res) => {
 
     } catch (error) {
         console.error("Error: ", error);
-        return res.status(500).json({ message: "Failed to send OTP email" });
+        const statusCode = 500;
+        const errorMessage = "Failed to send otp mail";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
 
     }
 }
@@ -352,7 +392,9 @@ const forgotPasswordPage = async (req, res) => {
         res.render("forgotPassword", { category: category })
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -376,7 +418,9 @@ const forgotPassword = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -389,7 +433,9 @@ const logout = async (req, res) => {
         res.redirect("/")
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -409,7 +455,9 @@ const accountDetailsPage = async (req, res) => {
         res.render("accountDetails", { category: category, userData: userData })
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -421,7 +469,9 @@ const userProfileEditPage = async (req, res) => {
         res.render("editProfileDetails", { category: category, userData: userData })
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 // let profileEdit=
@@ -485,7 +535,9 @@ const userProfileEdit = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -497,7 +549,9 @@ const verifyProfilePage = async (req, res) => {
         res.render("verifyProfile", { category: category, userData: userData })
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -520,7 +574,9 @@ const verifyProfile = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -534,7 +590,9 @@ const userAddressPage = async (req, res) => {
         res.render("userAddress", { category: category, userData: userData })
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -547,7 +605,9 @@ const addAddressPage = async (req, res) => {
         res.render("userAddAddress", { category: category, userData: userData })
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -576,7 +636,9 @@ const addAddress = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -601,12 +663,14 @@ const addAddressCheckout = async (req, res) => {
             await users.save()
             res.redirect("/checkout")
         } else {
-            return res.status("404").json({ error: "No user found" })
+            return res.status(404).render('errorPage', { statusCode:"404", errorMessage:"No user found" })
         }
 
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -621,7 +685,9 @@ const editAddressPage = async (req, res) => {
         res.render("userEditAddress", { category: category, userData: userData, usersData: usersData })
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -638,7 +704,9 @@ const editAddressCheckoutPage = async (req, res) => {
         res.render("editAddressCheckout", { category: category, userData: userData, usersData: usersData })
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -716,11 +784,14 @@ const editAddress = async (req, res) => {
         if (users) {
             res.redirect("/userAddress");
         } else {
-            return res.status(404).json({ error: "No user found or address not modified" });
+            return res.status(404).render('errorPage', { statusCode:"404", errorMessage:"No user found or address not modified" })
+
         }
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 };
 
@@ -761,11 +832,13 @@ const editAddressCheckout = async (req, res) => {
         if (users) {
             res.redirect("/checkout");
         } else {
-            return res.status(404).json({ error: "No user found or address not modified" });
+            return res.status(404).render('errorPage', { statusCode:"404", errorMessage:"No user found or address not modified" })
         }
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 };
 
@@ -781,11 +854,13 @@ const deleteAddress = async (req, res) => {
             res.redirect("/userAddress")
         }
         else {
-            return res.status(404).json({ error: "Not deleted" });
+            return res.status(404).render('errorPage', { statusCode:"404", errorMessage:"error on deletion" })
         }
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -840,7 +915,9 @@ const about = async (req, res) => {
         res.render("about", { category: category, userData: userData })
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -854,7 +931,9 @@ const contact = async (req, res) => {
         res.render("contact", { category: category, userData: userData })
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -867,7 +946,9 @@ const changePasswordPage = async (req, res) => {
         res.render("changePassword", { category: category, userData: userData })
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -894,7 +975,9 @@ const changePassword = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -912,13 +995,15 @@ const walletDetailsPage=async (req,res)=>{
         const transactions=userData.transactionDetails
         const transaction = userData.transactionDetails.slice(skip, skip + limit);
         let totalCount=transactions.length
-        let pageLimit=Math.floor(totalCount/limit)
+        let pageLimit=Math.ceil(totalCount/limit)
         const transactionTimestamp = new Date(transaction.transactionDate)
         const transactionsDate = transactionTimestamp.toLocaleDateString();
         res.render("walletDetails", { category: category, userData: userData,order:order,transaction:transaction ,transactionDate:transactionsDate,pageLimit,page:pageNumber})
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -939,7 +1024,9 @@ const couponDetailsPage=async (req,res)=>{
         res.render("couponDetails",{userData,category,coupon})
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
