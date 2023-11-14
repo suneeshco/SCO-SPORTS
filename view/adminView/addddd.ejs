@@ -1,0 +1,204 @@
+
+$('#search-form').submit(function(e) {
+    e.preventDefault(); // Prevent the form from being submitted normally
+
+    const searchQuery = $('#search-input').val();
+
+    $.ajax({
+        type: 'GET',
+        url: '/searchitems',
+        data: { query: searchQuery },
+        success: function(response) {
+          
+            $('#search-results-container').empty();
+            console.log(response.length,"response from front end script")
+            // Iterate through the search results and display each product
+            if (response.length > 0) {
+            response.forEach(function(product) {
+                const productItem = `
+    <div class="product-cart-wrap">
+        <div class="product-img-action-wrap">
+            <div class="product-img product-img-zoom">
+                <div class="product-img-inner">
+                    <a href="/productview?id=${product._id}">
+                        <img class="default-img" src="/cloud_images/${product.images[0].url}" alt="">
+                        <img class="hover-img" src="/cloud_images/${product.images[2].url}" alt="">
+                    </a>
+                </div>
+            </div>
+            ${product.stock > 0 ?
+                `<div class="product-badges product-badges-position product-badges-mrg">
+                    <span class="sale">SALE</span>
+                </div>` :
+                `<div class="product-badges product-badges-position product-badges-mrg">
+                    <span class="sale">OUT OF STOCK</span>
+                </div>`
+            }
+        </div>
+        <div class="product-content-wrap">
+            <h2><a href="/productview?id=${product._id}">${product.productName}</a></h2>
+            <div class="product-category">
+                <span>${product.category}</span>
+            </div>
+            <span style="font-weight: bold">Brand: ${product.brand}</span>
+            <div class="product-price">
+                <span>$${product.offerPrice}</span>
+                <br>
+                <span class="old-price">$${product.regularPrice}</span>
+            </div>
+            <div class="product-action-1 show">
+                <a aria-label="Add now" class="action-btn addwnow" data-item-id="${product._id}">
+                    <i class="fi-rs-heart"></i>Add to Wishlist
+                </a>
+                <div class="rating-result" title="90%">
+                    <span>
+                        <span>90%</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+
+                // Append the product item to the search results container
+                $('#search-results-container').append(productItem);
+                console.log('Product item:', productItem);
+            });
+        } else{
+            // Handle case when there are no search results
+            $('#search-results-container').append('<p>No results found.</p>');
+        }
+    },
+        error: function(error) {
+            console.log('Search error: ' + error);
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
+
+const loadSearchItems = async (req, res) => {
+    try {
+        const searchQuery = req.query.query;
+        console.log('Received search query:', searchQuery);
+
+        // Use Mongoose's $text operator for text search
+       const searchResults =  await Product.find({productName: { $regex: new RegExp(searchQuery, 'i') }});
+
+        console.log('Search results:', searchResults);
+        res.json(searchResults);
+    } catch (error) {
+        console.error('Search error:', error);
+        res.status(500).json({ error: 'An error occurred during the search.' });
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////
+
+
+
+<script>
+    document.getElementById('searchProduct').addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent the form from being submitted normally
+
+    const searchQuery = document.getElementById('search-input').value
+
+    $.ajax({
+        method: 'GET',
+        url: '/searchitems',
+        data: { query: searchQuery },
+        success: function (response) {
+
+            $('#search-results-container').empty();
+            console.log(response.length, "response from front end script")
+            // Iterate through the search results and display each product
+            if (response.length > 0) {
+                response.forEach(function (product) {
+                    const productItem = `
+
+            <div class="col-lg-4 col-md-4 col-12 col-sm-6">
+                            <div class="product-cart-wrap mb-30">
+                                <div class="product-img-action-wrap">
+                                    <div class="product-img product-img-zoom">
+                                        <a href="/products/productsDetail?id=${product._id}">
+                                            <img class="default-img" src="/brand_images/${product.images[0].url}" alt="">
+                                            
+                                        </a>
+                                    </div>
+                                    <div class="product-action-1">
+                                        
+                                        <a aria-label="Add To Wishlist" class="action-btn hover-up" href="" ><i class="fi-rs-heart"></i></a>
+                                        
+                                    </div>
+                                    <div class="product-badges product-badges-position product-badges-mrg">
+                                        <span class="hot">Hot</span>
+                                    </div>
+                                </div>
+                                <div class="product-content-wrap">
+                                    <div class="product-category">
+                                        <a href="shop-grid-right.html">${product.category}</a>
+                                    </div>
+                                    <div class="adjust_size_productName">
+                                        <h2><a href="shop-product-right.html">${product.title}</a></h2>
+                                    </div>
+                                    
+                                    <div class="rating-result" title="90%">
+                                        <span>
+                                            <span>90%</span>
+                                        </span>
+                                    </div>
+                                    <div class="product-price">
+                                        <span>₹${product.offerPrice}</span>
+                                        <span class="old-price">₹${product.regularPrice}</span>
+                                    </div>
+                                    <div class="product-action-1 show">
+                                        
+                                        <!-- <a aria-label="Add To Cart" class="action-btn hover-up"
+                                            href="shop-cart.html"><i class="fi-rs-shopping-bag-add"></i></a> -->
+                                            ${product.stock < 1 ? '<p style="color: red;">Out of stock</p>' : ''}
+                                    </div>
+                                    <form action="" method="post">
+                                        <input type="hidden" value="${product._id}" name="productId">
+                                    
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+            `;
+
+                    // Append the product item to the search results container
+                    $('#search-results-container').append(productItem);
+                    console.log('Product item:', productItem);
+                });
+            } else {
+                // Handle case when there are no search results
+                $('#search-results-container').append('<p>No results found.</p>');
+            }
+        },
+        error: function (error) {
+            console.log('Search error: ' + error);
+        }
+    });
+});
+</script>

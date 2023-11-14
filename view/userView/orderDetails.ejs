@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:20:36 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <title>SCO Sports</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/LOGO.png">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <style>
+        .adjust_size_productName {
+            max-width: 200px;
+            /* Adjust this to your desired maximum width */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .gradient-custom {
+            /* fallback for old browsers */
+            background: #3de97f;
+
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: -webkit-linear-gradient(to top left, #3de97f, #3de97f);
+
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: linear-gradient(to top left, #3de97f, rgba(246, 243, 255, 1))
+        }
+    </style>
+    <style>
+        /* Add your CSS styling here */
+        .search-container {
+            display: flex;
+            align-items: center;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .search-input {
+            width: 700px;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .search-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Add these links to your HTML -->
+
+
+
+
+</head>
+
+<body>
+
+
+
+    <!-- The modal -->
+    <div class="modal fade" id="returnModal" tabindex="-1" role="dialog" aria-labelledby="returnModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="returnModalLabel">Select Return Reason</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Create a form to select a reason for return -->
+                    <form id="returnReasonForm">
+                        <div class="form-group">
+                            <label for="returnReason">Select a reason for return:</label>
+                            <select class="form-control" id="returnReason" name="returnReason">
+                                <option value="Wrong Item Delivered">Wrong Item Delivered</option>
+                                <option value="Damaged or Defective Product">Damaged or Defective Product</option>
+                                <option value="Size or Fit Issue">Size or Fit Issue</option>
+                                <option value="Changed My Mind">Changed My Mind</option>
+                                <option value="Late Delivery">Late Delivery</option>
+                                <!-- Add more reasons here as additional <option> elements -->
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="confirmReturn">Confirm Return</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <header class="header-area header-style-1 header-height-2">
+        <div class="header-top header-top-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info">
+                            <ul>
+                                <li><i class="fi-rs-smartphone"></i> <a href="#">+91 9876543210</a></li>
+                                <li><i class="fi-rs-marker"></i><a href="page-contact.html">Our location</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-4">
+
+                    </div>
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info header-info-right">
+                            <ul>
+                                <%if(user){%>
+                                    <li><i class="fi-rs-user"></i><a href="/userAccount">Account</a></li>
+                                    <li><i class="fi-rs-user"></i><a href="/logout">Logout</a></li>
+                                    <%}else{%>
+                                        <li><i class="fi-rs-user"></i><a href="/user/login">Log In</a></li>
+                                        <li><i class="fi-rs-user"></i><a href="/user/signup">Sign Up</a></li>
+                                        <%}%>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="header-wrap">
+                    <div class="logo logo-width-1">
+                        <a href="index.html"><img src="/assets/imgs/theme/LOGO.png" alt="logo"></a>
+                    </div>
+                    <div class="header-right">
+                        <form action="/search" method="get">
+                            <div class="search-container">
+                                <input type="text" class="search-input" name="query" placeholder="Search...">
+                                <button type="submit" class="search-button">Search</button>
+                            </div>
+                        </form>
+                        <div class="header-action-right">
+                            <div class="header-action-2">
+                                <div class="header-action-icon-2">
+                                    <a href="/wishlist">
+                                        <img class="svgInject" alt="SCO" src="/assets/imgs/theme/icons/icon-heart.svg">
+                                        <%if(user){%>
+                                            <span class="pro-count blue">
+                                                <%=userData.wishlist.length%>
+                                            </span>
+                                            <%}%>
+                                    </a>
+                                </div>
+                                <div class="header-action-icon-2">
+                                    <a class="mini-cart-icon" href="/cart">
+                                        <img alt="SCO" src="/assets/imgs/theme/icons/icon-cart.svg">
+                                        <%if(user){%>
+                                            <span class="pro-count blue">
+                                                <%=userData.cart.length%>
+                                            </span>
+                                            <%}%>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom header-bottom-bg-color sticky-bar">
+            <div class="container">
+                <div class="header-wrap header-space-between position-relative">
+                    <div class="logo logo-width-1 d-block d-lg-none">
+                        <a href="index.html"><img src="/assets/imgs/theme/LOGO.png" alt="logo"></a>
+                    </div>
+                    <div class="header-nav d-none d-lg-flex">
+                        <div class="main-categori-wrap d-none d-lg-block">
+                            <a class="categori-button-active" href="#">
+                                <span class="fi-rs-apps"></span> Browse Categories
+                            </a>
+                            
+                        </div>
+                        <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
+                            <nav>
+                                <ul>
+                                    <li><a class="active" href="/userHome">Home </a></li>
+                                    <li><a href="/about">About</a></li>
+                                    <li><a href="/shop">Shop </a></li>
+                                    <li><a href="/contact">Contact</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="header-action-right d-block d-lg-none">
+                        <div class="header-action-2">
+                            <div class="header-action-icon-2">
+                                <a href="/wishlist">
+                                    <img alt="Evara" src="/assets/imgs/theme/icons/icon-heart.svg">
+                                    <%if(user){%>
+                                        <span class="pro-count white">
+                                            <%=userData.wishlist.length%>
+                                        </span>
+                                        <%}%>
+                                </a>
+                            </div>
+                            <div class="header-action-icon-2">
+                                <a class="mini-cart-icon" href="/cart">
+                                    <img alt="SCO" src="/assets/imgs/theme/icons/icon-cart.svg">
+                                    <%if(user){%>
+                                        <span class="pro-count white">
+                                            <%=userData.cart.length%>
+                                        </span>
+                                        <%}%>
+                                </a>
+
+                            </div>
+                            <div class="header-action-icon-2 d-block d-lg-none">
+                                <div class="burger-icon burger-icon-white">
+                                    <span class="burger-icon-top"></span>
+                                    <span class="burger-icon-mid"></span>
+                                    <span class="burger-icon-bottom"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Mobile View Side Toggle -->
+
+
+    <div class="mobile-header-active mobile-header-wrapper-style">
+        <div class="mobile-header-wrapper-inner">
+            <div class="mobile-header-top">
+                <div class="mobile-header-logo">
+                    <a><img src="/assets/imgs/theme/LOGO.png" alt="logo"></a>
+                </div>
+                <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+                    <button class="close-style search-close">
+                        <i class="icon-top"></i>
+                        <i class="icon-bottom"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mobile-header-content-area">
+                <div class="mobile-search search-style-3 mobile-header-border">
+                    <form action="/search" method="get">
+                        <div class="search-container">
+                            <input type="text" class="search-input" name="query" placeholder="Search...">
+                            <button type="submit" class="search-button">Search</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="mobile-menu-wrap mobile-header-border">
+                    <div class="main-categori-wrap mobile-header-border">
+                        <a class="categori-button-active-2" href="#">
+                            <span class="fi-rs-apps"></span> Browse Categories
+                        </a>
+                        <div class="categori-dropdown-wrap categori-dropdown-active-small">
+                            <ul>
+                                <%for(let i=0;i<category.length;i++){%>
+                                    <li><a href="/products/category?category=<%=category[i].categoryName%>"><i
+                                                class="evara-font-desktop"></i>
+                                            <%=category[i].categoryName%>
+                                        </a></li>
+                                    <%}%>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- mobile menu start -->
+                    <nav>
+                        <ul class="mobile-menu">
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                    href="/userHome">Home</a>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                    href="/about">About</a>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="/shop">shop</a>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                    href="/contact">Contact</a>
+
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- mobile menu end -->
+                </div>
+                <div class="mobile-header-info-wrap mobile-header-border">
+
+                    <div class="single-mobile-header-info">
+                        <a href="/user/login">Log In</a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="/user/signup">Sign Up</a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="#">(+91) 9876543210 </a>
+                    </div>
+                </div>
+                <div class="mobile-social-icon">
+                    <h5 class="mb-15 text-grey-4">Follow Us</h5>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+
+        <section class="h-100 ">
+            <%const status=order.returnStatus??order.status%>
+            <div class="container">
+                <div class="row mt-4">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4>Order Id:<%=order.orderId%>
+                            </h4>
+                        </div>
+                        <div class="col-md-3">
+                            <h5>Ordered Date: <%=orderedDate%>
+                                    </h4>
+                                    <%if(order.deliveryStatus){%>
+                                        <h5>Delivery Date : <%=deliveryDate%>
+                                        </h5>
+                                        <%}else{%>
+                                            <h5>Delivery Date : Nil</h5>
+                                            <%}%>
+                        </div>
+                        <div class="col-md-2">
+                            <% if (order.deliveryStatus) { %>
+                                <a href="/download/invoice/<%= order._id %>" class="btn">Download Invoice</a>
+                              <% } %>
+                        </div>
+                        <div class="col-md-3">
+                            <%if((order.status==="pending")||(order.status==="shipped")){%>
+                                <a href="/cancelOrder/<%=order._id%>"
+                                    onclick="return confirmCancel('/cancelOrder/<%=order._id%>')"><button
+                                        class="btn">Cancel Order</button></a>
+                                <%}%>
+
+
+
+
+
+                                    <% if (order.status==="delivered" ) { %>
+                                        <% const currentDate=new Date(); %>
+                                        <% const orderCreationDate=new Date( order.deliveredOn ); %>
+
+                                        <% const expiryInSeconds=1000; %>
+                                        <% const currentTimeInSeconds=Math.floor(currentDate.getTime()/1000); %>
+                                        <% const orderCreationTimeInSeconds=Math.floor(orderCreationDate.getTime()/ 1000); %>
+                                        <% const timeDifferenceInSeconds=expiryInSeconds-(currentTimeInSeconds - orderCreationTimeInSeconds); %>
+                                        
+                                            <% if(!order.return ){ %>
+                                                 <% if(timeDifferenceInSeconds> 0) { %>
+
+                                                     <a href="#" data-toggle="modal"
+                                                     data-target="#returnModal">
+                                                     <button class="btn">Return Order</button></a>
+                                                 <% } else { %>
+                                                    <p>Return option has expired.</p>
+                                            <% } %>
+                                        <%}else{%>
+                                            <a href="" class="btn" id="cancelReturn">Cancel Return</a>
+                                        <%}%>
+                                    
+                                    <% } %>
+                        </div>
+                        
+
+                                    
+                        </div>
+                    </div>
+
+                    <!-- Card for Address, Order Summary, and Payment Method -->
+                    <div class="card mt-10 mb-30">
+
+                        <div class="pt-20 pb-50 m-10">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div>
+                                        <h5 class="card-title">Delivery Address</h5>
+                                    </div>
+                                    <p class="card-text">
+                                        <%=addressData.name%><br>
+                                            <%=addressData.houseName%>,<br>
+                                                <%=addressData.street%>, <%=addressData.city%>,<br>
+                                                        <%=addressData.district%>, <%=addressData.state%> <br>
+                                                                <%=addressData.pin%>
+                                    </p>
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    <h5 class="card-title">Payment Method</h5>
+                                    <p class="card-text">
+                                        <%=order.paymentMethod%>
+                                    </p>
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    <h5 class="card-title">Status</h5>
+                                    
+                                    <p class="card-text">
+                                        <%=status%>
+                                    </p>
+
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="row">
+                                        <h5 class="card-title">Order Summary</h5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p>Subtotal</p>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p> : ₹<%=order.totalAmount%>.00</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p>Shipping</p>
+                                        </div>
+                                        <div class="col-md-8 ">
+                                            <p> : ₹0.00</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p>
+                                            <h5>Total</h5>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p>
+                                            <h5> : ₹<%=order.totalAmount%>.00</h5>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Product Details</h4>
+                    <div class="card mt-30 mb-30">
+
+
+                        <div class="card mt-5 mb-5" style="background-color: #e4e6e5;">
+                            <div class="pt-1 pb-2 ">
+                                <div class="row">
+                                    <div class="col-md-3 d-flex justify-content-center align-items-center">
+                                        <h4>Image</h4>
+                                    </div>
+                                    <div class="col-md-3 d-flex justify-content-center align-items-center">
+                                        <h4>Product Name</h4>
+                                    </div>
+                                    <div class="col-md-3 d-flex justify-content-center align-items-center">
+                                        <h4>Quantity</h4>
+                                    </div>
+                                    <div class="col-md-3 d-flex justify-content-center align-items-center">
+                                        <h4>SubTotal</h4>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <%for(let i=0;i< items.length;i++){%>
+                            <div class="card mt-5 mb-5" style="background-color: #e4e6e5;">
+                                <div class="pt-2 pb-2 ">
+
+
+
+                                    <div class="row">
+
+                                        <div class="col-md-3 d-flex  " style="height: 50px; ">
+                                            <div class="container-fluid align-items-center justify-content-center"
+                                                style="height: 105px; width: 105px;">
+                                                <img src="/admin-assets/imgs/croppedProducts/<%=productData[i].images[0].url%>"
+                                                    class="img-fluid" alt="Product 1">
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-3 d-flex justify-content-center align-items-center">
+                                            <h5 class="card-title">
+                                                <%=productData[i].title%>
+                                            </h5>
+
+                                        </div>
+                                        <div class="col-md-3 d-flex justify-content-center align-items-center">
+                                            <h5 class="card-title">
+                                                <%=items[i].quantity%>
+                                            </h5>
+
+                                        </div>
+                                        <div class="col-md-3 d-flex justify-content-center align-items-center">
+                                            <h5 class="card-title">
+                                                <%=items[i].subtotal%>
+                                            </h5>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <%}%>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main">
+
+        <section class="section-padding footer-mid">
+            <div class="container pt-15 pb-20">
+                <div class="divider center_icon mt-50 mb-50"><i class="fi-rs-fingerprint"></i></div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="widget-about font-md mb-md-5 mb-lg-0">
+                            <div class="logo logo-width-1 wow fadeIn animated">
+                                <a href="index.html"><img src="/assets/imgs/theme/LOGO.png" alt="logo"></a>
+                            </div>
+                            <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
+                            <p class="wow fadeIn animated">
+                                <strong>Address: </strong>562 Wellington Road, Street 32, San Francisco
+                            </p>
+                            <p class="wow fadeIn animated">
+                                <strong>Phone: </strong>+01 2222 365 /(+91) 01 2345 6789
+                            </p>
+                            <p class="wow fadeIn animated">
+                                <strong>Hours: </strong>10:00 - 18:00, Mon - Sat
+                            </p>
+                            <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
+                            <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
+                                <a href="#"><img src="/assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                                <a href="#"><img src="/assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                                <a href="#"><img src="/assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                                <a href="#"><img src="/assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                                <a href="#"><img src="/assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <h5 class="widget-title wow fadeIn animated">About</h5>
+                        <ul class="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Delivery Information</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms &amp; Conditions</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Support Center</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2  col-md-3">
+                        <h5 class="widget-title wow fadeIn animated">My Account</h5>
+                        <ul class="footer-list wow fadeIn animated">
+                            <li><a href="#">Sign In</a></li>
+                            <li><a href="#">View Cart</a></li>
+                            <li><a href="#">My Wishlist</a></li>
+                            <li><a href="#">Track My Order</a></li>
+                            <li><a href="#">Help</a></li>
+                            <li><a href="#">Order</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5 class="widget-title wow fadeIn animated">Install App</h5>
+                        <div class="row">
+                            <div class="col-md-8 col-lg-12">
+                                <p class="wow fadeIn animated">From App Store or Google Play</p>
+                                <div class="download-app wow fadeIn animated">
+                                    <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img class="active"
+                                            src="/assets/imgs/theme/app-store.jpg" alt=""></a>
+                                    <a href="#" class="hover-up"><img src="/assets/imgs/theme/google-play.jpg"
+                                            alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-12 mt-md-3 mt-lg-0">
+                                <p class="mb-20 wow fadeIn animated">Secured Payment Gateways</p>
+                                <img class="wow fadeIn animated" src="/assets/imgs/theme/payment-method.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container pb-20 wow fadeIn animated">
+            <div class="row">
+                <div class="col-12 mb-20">
+                    <div class="footer-bottom"></div>
+                </div>
+                <div class="col-lg-6">
+                    <p class="float-md-left font-sm text-muted mb-0">&copy; 2021, <strong
+                            class="text-brand">Evara</strong> - HTML Ecommerce Template </p>
+                </div>
+                <div class="col-lg-6">
+                    <p class="text-lg-end text-start font-sm text-muted mb-0">
+                        Designed by <a href="http://alithemes.com/" target="_blank">Alithemes.com</a>. All rights
+                        reserved
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="text-center">
+                    <h5 class="mb-10">Now Loading</h5>
+                    <div class="loader">
+                        <div class="bar bar1"></div>
+                        <div class="bar bar2"></div>
+                        <div class="bar bar3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor JS-->
+    <script>
+        function confirmCancel(id) {
+            // Use SweetAlert for the confirmation dialog
+            Swal.fire({
+                title: '',
+                text: 'Do you want to cancel this order',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, cancel Order',
+                cancelButtonText: 'No',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If the user confirms, proceed with the deletion
+                    window.location.href = `${id}`;
+                } else {
+                    return false
+                }
+            });
+            // Prevent the link from navigating immediately
+            return false;
+        }
+    </script>
+    <script>
+        // When the "Confirm Return" button in the modal is clicked
+        document.getElementById('confirmReturn').addEventListener('click', function () {
+            // Get the selected return reason
+            const selectedReason = document.getElementById('returnReason').value;
+
+            // Send an AJAX request to update the order status
+            $.ajax({
+                type: 'POST',
+                url: '/returnOrderConfirmation/<%= order._id %>',
+                data: { reason: selectedReason }, // Include the selected reason in the request
+                success: (response) => {
+                    if (response.success) {
+                        // Update the page or show a success message
+                        Swal.fire({
+                            title: '',
+                            text: 'Return Requested Successfully',
+                            icon: 'success',
+                            showCancelButton: false,
+                            confirmButtonText: 'ok',
+                            cancelButtonText: 'No, cancel',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Redirect to userOrders upon confirmation
+                                window.location.href = "/userOrders";
+                            }
+                        });
+                    } else {
+                        alert('Error submitting return request.');
+                    }
+                },
+            });
+        });
+
+
+
+
+        document.getElementById('cancelReturn').addEventListener('click', function (event) {
+            event.preventDefault()
+            Swal.fire({
+                title: '',
+                text: 'Do you want to cancel the order',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'yes',
+                cancelButtonText: 'No ',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to userOrders upon confirmation
+                    window.location.href = "/cancelReturn/<%=order._id%>";
+
+                }
+            });
+
+        })
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="/assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="/assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/plugins/slick.js"></script>
+    <script src="/assets/js/plugins/jquery.syotimer.min.js"></script>
+    <script src="/assets/js/plugins/wow.js"></script>
+    <script src="/assets/js/plugins/jquery-ui.js"></script>
+    <script src="/assets/js/plugins/perfect-scrollbar.js"></script>
+    <script src="/assets/js/plugins/magnific-popup.js"></script>
+    <script src="/assets/js/plugins/select2.min.js"></script>
+    <script src="/assets/js/plugins/waypoints.js"></script>
+    <script src="/assets/js/plugins/counterup.js"></script>
+    <script src="/assets/js/plugins/jquery.countdown.min.js"></script>
+    <script src="/assets/js/plugins/images-loaded.js"></script>
+    <script src="/assets/js/plugins/isotope.js"></script>
+    <script src="/assets/js/plugins/scrollup.js"></script>
+    <script src="/assets/js/plugins/jquery.vticker-min.js"></script>
+    <script src="/assets/js/plugins/jquery.theia.sticky.js"></script>
+    <!-- Template  JS -->
+    <script src="/assets/js/main.js"></script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/page-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:27:15 GMT -->
+
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:32:35 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>SCO Sports</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/LOGO.png">
+    <!-- Template CSS -->
+    <link href="../../admin-assets/css/main.css" rel="stylesheet" type="text/css" />
+
+    <style>/* CSS for the image and its container */
+        .image-preview {
+            float: right;
+            width: 200px; /* Adjust the width as needed */
+            height: auto; /* Maintains aspect ratio */
+            margin-left: 20px; /* Add margin to create space between the image and form */
+        }
+        </style>
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+                <img src="/assets/imgs/theme/LOGO.png" class="logo" alt="Evara Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/dashboard"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/products"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                    
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/users"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Users</span>
+                    </a> 
+                </li>
+
+                <li class="menu-item active">
+                    <a class="menu-link" href="/admin/brands"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Brands</span> </a>
+                </li>
+
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/category"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Category Management</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Order Management</span> </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/coupons"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Coupon Management</span> </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/banner"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Banner Management</span> </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/salesReport"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Sales Report</span> </a>
+                </li>
+                
+            </ul>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+                
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="../admin-assets/imgs/people/avatar2.jpg" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="/admin/logout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <section class="content-main">
+            <div class="row">
+                <div class="col-9">
+                    <div class="content-header">
+                        <h2 class="content-title">Edit Brand</h2>
+                        <div>
+
+                        </div>
+                    </div>
+                    <% if (typeof message !=="undefined" ) { %>
+                        <p style="color:red" id="errormsg">
+                            <%= message %>
+                        </p>
+                        <% } %>
+                </div>
+                <div class="col-lg-12">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>BRAND DETAILS</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="" method="post" enctype="multipart/form-data">
+                                <div class="mb-4">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <label for="brand_name" class="form-label">Brand title</label>
+                                            <input type="text" placeholder="Type here" class="form-control"
+                                                id="brand_name" name="brand_name" value="<%=brandData.brandName%>">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label for="brand_description" class="form-label">Brand Description</label>
+                                            <input type="text" placeholder="Type here" class="form-control"
+                                                id="brand_description" name="brand_description" value="<%=brandData.brandDescription%>">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label for="image" class="form-label">Image</label>
+                                            <input class="form-control form-control-lg" type="file" name="image" value="<%=brandData.image%>">
+                                        </div>
+                                        
+                                        <div class="col-lg-4 mt-30">
+                                            <label for="status" class="form-label">Status</label>
+                                            <select name="status" id="status" >
+                                                <option value="true">List</option>
+                                                <option value="false">Unlist</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="image-preview">
+                                                <img src="/brand_images/<%=brandData.image%>" alt="">
+                                            </div>
+                                            <div><a href="/admin/brands/deleteImage/<%=brandData._id%>"></a></div>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                    
+
+
+                                    
+                                    
+
+
+
+                                </div>
+                                <div class="text-center" class="pt-15">
+                                    <input type="hidden" name="brandId" value="<%=brandData._id%>">
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="text-muted material-icons md-post_add"></i>Update Brand</button>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div> <!-- card end// -->
+                </div>
+            </div>
+
+
+
+
+        </section> <!-- content-main end// -->
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script> ©, Evara - HTML Ecommerce Template .
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <script src="/admin-assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="/admin-assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="/admin-assets/js/vendors/select2.min.js"></script>
+    <script src="/admin-assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="/admin-assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="/admin-assets/js/main.js" type="text/javascript"></script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-form-product-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:32 GMT -->
+</html>

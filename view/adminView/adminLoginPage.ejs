@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SCO Sports</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+    /* Importing fonts from Google */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Reseting */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20210426/pngtree-abstract-gradient-crystal-texure-background-in-dark-green-color-image_671444.jpg");
+}
+
+.wrapper {
+    max-width: 350px;
+    min-height: 500px;
+    margin: 80px auto;
+    padding: 40px 30px 30px 30px;
+    background-color: #ecf0f3;
+    border-radius: 15px;
+    box-shadow: 13px 13px 20px #0abc63, -13px -13px 20px #0bad5c;
+}
+
+.logo {
+    width: 80px;
+    margin: auto;
+}
+
+.logo img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0px 0px 3px #5f5f5f,
+        0px 0px 0px 5px #ecf0f3,
+        8px 8px 15px #a7aaa7,
+        -8px -8px 15px #fff;
+}
+
+.wrapper .name {
+    font-weight: 600;
+    font-size: 1.4rem;
+    letter-spacing: 1.3px;
+    padding-left: 10px;
+    color: #555;
+}
+
+.wrapper .form-field input {
+    width: 100%;
+    display: block;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.2rem;
+    color: #666;
+    padding: 10px 15px 10px 10px;
+    /* border: 1px solid red; */
+}
+
+.wrapper .form-field {
+    padding-left: 10px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+}
+
+.wrapper .form-field .fas {
+    color: #555;
+}
+
+.wrapper .btn {
+    box-shadow: none;
+    width: 100%;
+    height: 40px;
+    background-color: #03A9F4;
+    color: #fff;
+    border-radius: 25px;
+    box-shadow: 3px 3px 3px #b1b1b1,
+        -3px -3px 3px #fff;
+    letter-spacing: 1.3px;
+}
+
+.wrapper .btn:hover {
+    background-color: #039BE5;
+}
+
+.wrapper a {
+    text-decoration: none;
+    font-size: 0.8rem;
+    color: #03A9F4;
+}
+
+.wrapper a:hover {
+    color: #039BE5;
+}
+
+@media(max-width: 380px) {
+    .wrapper {
+        margin: 30px 20px;
+        padding: 40px 15px 15px 15px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="logo">
+            <img src="data:image/jpeg;base64,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" alt="">
+        </div>
+        <div class="text-center mt-4 name">
+            Admin
+        </div>
+        <form class="p-3 mt-3" method="post" onsubmit="return checkFormValidity()">
+            <div class="form-field d-flex align-items-center">
+                <span class="far fa-user"></span>
+                <input type="text" name="adminName" id="adminName" placeholder="Username">
+                
+            </div>
+            <div class="validation-message text-danger" id="emailValidationMessage"></div>
+            <div class="form-field d-flex align-items-center">
+                <span class="fas fa-key"></span>
+                <input type="password" name="adminPassword" id="adminPassword" placeholder="Password">
+                
+            </div>
+            <div class="validation-message text-danger" id="passwordValidationMessage"></div>
+            <button type="submit" class="btn mt-3">Login</button>
+            <% if(typeof(message)!== undefined){%>
+                <div class="align-items-center"><p id="msg" style="color: red;"><%=locals.message%></p></div>
+                                                        
+                <%}%>
+        </form>
+        <div class="text-center fs-6">
+            <a href="/admin/forgetPassword1">Forget password?</a>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <script>
+        const emailInput = document.getElementById('adminName');
+        const passwordInput = document.getElementById('adminPassword');
+
+        const emailValidationMessage = document.getElementById('emailValidationMessage');
+        const passwordValidationMessage = document.getElementById('passwordValidationMessage');
+
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+        emailInput.addEventListener('input', () => {
+            const email = emailInput.value;
+            const isValid = validateEmail(email);
+        });
+
+        passwordInput.addEventListener('input', () => {
+            const password = passwordInput.value;
+            const isValid = validatePassword(password);
+        });
+
+
+        function validateEmail(email) {
+            if(email.trim().length < 1){
+                emailValidationMessage.textContent="Email cannot be empty"
+                return false
+            }
+            if(!emailRegex.test(email.trim())){
+                emailValidationMessage.textContent="Enter a valid email Id"
+                return false
+            }
+            emailValidationMessage.textContent=""
+            return true
+        }
+
+        function validatePassword(password) {
+            if(password.trim().length < 1){
+                passwordValidationMessage.textContent="Password cannot be empty"
+                return false
+            }
+            passwordValidationMessage.textContent=""
+            return true
+        }
+
+        function checkFormValidity() {
+            let emailIsValid = validateEmail(emailInput.value);
+            let passwordIsValid = validatePassword(passwordInput.value);
+        
+            if (emailIsValid && passwordIsValid) {
+                return true
+            } else {
+                return false
+            }
+        }
+
+
+    </script>
+
+        
+</body>
+</html>

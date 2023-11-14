@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:32:35 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>SCO Sports</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/LOGO.png">
+    <!-- Template CSS -->
+    <link href="../../admin-assets/css/main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+                <img src="/assets/imgs/theme/LOGO.png" class="logo" alt="Evara Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/dashboard"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/products"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                    
+                </li>
+                <li class="menu-item active">
+                    <a class="menu-link" href="/admin/users"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Users</span>
+                    </a> 
+                </li>
+
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/brands"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Brands</span> </a>
+                </li>
+
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/category"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Category Management</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Order Management</span> </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/coupons"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Coupon Management</span> </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/banner"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Banner Management</span> </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/salesReport"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Sales Report</span> </a>
+                </li>
+                
+            </ul>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+                
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="../admin-assets/imgs/people/avatar2.jpg" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="/admin/logout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <section class="content-main">
+            <div class="content-header">
+                <h2 class="content-title">Users list</h2>
+                
+            </div>
+            <div class="card mb-4">
+                <header class="card-header">
+                    <div class="row gx-3">
+                        <div class="col-lg-4 col-md-6 me-auto">
+                            <input type="text" placeholder="Search..." class="form-control">
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-6">
+                            <select class="form-select">
+                                <option>Status</option>
+                                <option>Active</option>
+                                <option>Disabled</option>
+                                <option>Show all</option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                </header> <!-- card-header end// -->
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Seller</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Registered</th>
+                                    <th class="text-end"> Action </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%for(let i=0;i<user.length;i++){%>
+                                <tr>
+                                    <td width="40%">
+                                        <a href="#" class="itemside">
+                                            <div class="left">
+                                                <img src="data:image/png;base64,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" class="img-sm img-avatar" alt="Userpic">
+                                            </div>
+                                            <div class="info pl-3">
+                                                <h6 class="mb-0 title"><%= user[i].name%></h6>
+                                                
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td><%=user[i].email%></td>
+                                    <%if(user[i].status==true){%>
+                                    <td><span class="badge rounded-pill alert-success">Active</span></td>
+                                    <%}else{%>
+                                        <td><span class="badge rounded-pill alert-danger">Blocked</span></td>
+                                        <%}%>
+                                    <td><%=user[i].date%></td>
+                                    <td class="text-end">
+                                        
+                                        <%if(user[i].status==true){%>
+                                        <a href="/admin/users/userStatusBlock?id=<%=user[i]._id%>" class="btn btn-sm btn-brand rounded font-sm mt-15 " onclick="return confirmDelete('/admin/users/userStatusBlock?id=<%=user[i]._id%>','block')">Block </a>
+                                        <%}else{%>
+                                            <a href="/admin/users/userStatusUnblock?id=<%=user[i]._id%>" class="btn btn-sm btn-brand rounded font-sm mt-15" onclick="return confirmDelete('/admin/users/userStatusUnblock?id=<%=user[i]._id%>','unblock')">Unblock</a>
+                                            <%}%>
+                                    </td>
+                                </tr>
+                                <%}%>
+                                
+                            </tbody>
+                        </table> <!-- table-responsive.// -->
+                    </div>
+                </div> <!-- card-body end// -->
+            </div> <!-- card end// -->
+            <div class="pagination-area mt-15 mb-50">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-start">
+                        <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                        
+                    </ul>
+                </nav>
+            </div>
+        </section> <!-- content-main end// -->
+       
+    </main>
+    <script>
+        function confirmDelete(action,bl) {
+        // Use SweetAlert for the confirmation dialog
+        Swal.fire({
+            title: '',
+            text: `Do you want to ${bl} this user `,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: `Yes, ${bl} `,
+            cancelButtonText: 'No, cancel',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If the user confirms, proceed with the deletion
+                window.location.href = `${action}`;
+            }else{
+                return false
+            }
+        });
+        // Prevent the link from navigating immediately
+        return false;
+    }
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../admin-assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="../admin-assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="../admin-assets/js/vendors/select2.min.js"></script>
+    <script src="../admin-assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="../admin-assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="../admin-assets/js/main.js" type="text/javascript"></script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-sellers-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:23 GMT -->
+</html>
