@@ -128,7 +128,7 @@ const  placeOrder = async (req, res) => {
         const item = []
 
         const outOfStockItems = [];
-        console.log(outOfStockItems,"qqqqqqqqqqqqqq");
+        
 
         for (let i = 0; i < items.length; i++) {
             const productId = items[i].productId;
@@ -149,8 +149,7 @@ const  placeOrder = async (req, res) => {
                 outOfStockItems.push(productId)
             }
         }
-        console.log(item,"iiiiiiiiiiiiiii");
-        console.log(outOfStockItems.length,"oooooooooo");
+        
         if (outOfStockItems.length === 0) {
             const customerData = JSON.parse(req.body.customer);
 

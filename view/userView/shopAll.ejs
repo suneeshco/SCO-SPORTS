@@ -38,9 +38,9 @@
         }
 
         .search-input {
-            width: 700px;
+            width: 600px;
             border: none;
-            padding: 10px;
+            padding: 20px;
             border-radius: 5px;
         }
 
@@ -100,12 +100,26 @@
                     <div class="header-right">
 
                         
-                        <form action="/search?pages=<%=pages%>&categ=<%=categ%>" method="get">
-                            <div class="search-container">
-                                <input type="text" class="search-input" name="query" placeholder="Search...">
-                                <button type="submit" class="search-button">Search</button>
-                            </div>
+                        <select class="select-active" onchange="handleCategoryChange(this)">
+                            <option value="/search?pages=1" <% if (!categ) { %> selected <% } %>>All Categories</option>
+                            <% for (let i = 0; i < category.length; i++) { %>
+                            <option value="/search?categ=<%= category[i]._id %>" <% if (categ && categ.toString() === category[i]._id.toString()) { %> selected <% } %>><%= category[i].categoryName %></option>
+                            <% } %> 
+                            
+                        </select>
+                        <div class="search-container">
+                        <form action="/search" method="get">
+                            <input type="hidden" name="sort" value="<%=sort%>">
+                            <input type="hidden" name="pages" value=1>
+                            <input type="hidden" name="categ" value="<%= categ %>">
+                            <input type="text" class="search-input" name="query" placeholder="Search...">
+                            <button type="submit" class="search-button">Search</button>
+                           
                         </form>
+                    </div>
+
+
+                        
 
 
                         <div class="header-action-right">
@@ -229,11 +243,12 @@
             </div>
             <div class="mobile-header-content-area">
                 <div class="mobile-search search-style-3 mobile-header-border">
-                    <form action="/search?pages=<%=pages%>&categ=<%=categ%>" method="get">
-                        <div class="search-container">
-                            <input type="text" class="search-input" name="query" placeholder="Search...">
-                            <button type="submit" class="search-button">Search</button>
-                        </div>
+                    <form action="/search" method="get">
+                        <input type="hidden" name="pages" value="1">    
+                        <input type="hidden" name="categ" value="<%= categ %>">
+                        <input type="text" class="search-input" name="query" placeholder="Search...">
+                        <button type="submit" class="search-button">Search</button>
+                       
                     </form>
                 </div>
                 <div class="mobile-menu-wrap mobile-header-border">
@@ -509,6 +524,14 @@
                 }
             })
         }
+    </script>
+    <script>
+        function handleCategoryChange(select) {
+        const selectedValue = select.value;
+        if (selectedValue !== "") {
+            window.location.href = selectedValue;
+        }
+    }
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
