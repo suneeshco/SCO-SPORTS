@@ -128,7 +128,7 @@ userRoute.post("/changePassword",userController.changePassword)
 userRoute.get("/walletDetails",userController.walletDetailsPage)
 userRoute.get("/couponDetails",userController.couponDetailsPage)
 // userRoute.get("/referrals",userController.referralPage)
-// userRoute.get("*",async(req,res) => {res.render("errorPage")})
+// userRoute.get("*",async(req,res) => {res.render("errorPage",{statusCode:"404",errorMessage:"Page Not Found"})})
 
 
 

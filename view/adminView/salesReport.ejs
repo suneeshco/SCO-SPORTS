@@ -112,7 +112,7 @@
                     <div class="row gx-3">
                         
                         <div class="col-lg-3 col-md-6">
-                            <form action="/salesFilter" method="get">
+                            <form action="/admin/salesFilter" method="get">
                                 <div class="form-group">
                                     <label for="startDate">Start Date</label>
                                     <input type="date" name="startDate" id="startDate" class="form-control">
@@ -135,9 +135,9 @@
                         </div>
                         <div  class="col-lg-2">
                             <%if(startDate&&endDate){%>
-                            <a href="/downloadPdfReport?start=<%=startDate%>&end=<%=endDate%>" class="btn" id="pdfDownload" style="background-color: rgb(230, 102, 17);" >Download PDF</a>
+                            <a href="/admin/downloadPdfReport?start=<%=startDate%>&end=<%=endDate%>" class="btn" id="pdfDownload" style="background-color: rgb(230, 102, 17);" >Download PDF</a>
                             <%}else{%>
-                                <a href="/downloadPdfReport" class="btn" id="pdfDownload" style="background-color: rgb(230, 102, 17);" >Download PDF</a>
+                                <a href="/admin/downloadPdfReport" class="btn" id="pdfDownload" style="background-color: rgb(230, 102, 17);" >Download PDF</a>
                             <%}%>
                         </div>
 

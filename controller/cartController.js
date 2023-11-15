@@ -39,7 +39,9 @@ const cartShowPage = async (req, res) => {
         res.render("cart", { category: category, productData: productData, userData: userData, customer: customer, priceArray: priceArray, cartTotal: cartTotal })
 
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -73,10 +75,12 @@ const addToCart = async (req, res) => {
             await user.save();
             res.redirect("/cart");
         } else {
-            return res.status(404).json({ error: "No user found" });
+            return res.status(404).render("errorPage",{statusCode:"404",errorMessage:"User Not Found"})
         }
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 };
 
@@ -105,7 +109,7 @@ const updateQuantity = async (req, res) => {
 
 
         } else {
-            return res.status(404).send('Cart item not found.');
+            return res.status(404).render("errorPage",{statusCode:"404",errorMessage:"CartItem Not Found"})
         }
         customer.cartTotal = 0
 
@@ -117,7 +121,9 @@ const updateQuantity = async (req, res) => {
         console.log(customer.cartTotal);
         res.json({ message: 'Cart quantity updated successfully', updatedQuantity: cartItem.quantity, productValue: cartItem.subtotal, cartTotal: customer.cartTotal });
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -134,10 +140,12 @@ const deleteCartItem = async (req, res) => {
             res.redirect("/cart")
         }
         else {
-            return res.status('404').send("Something Wrong with deletion")
+            return res.status(404).render("errorPage",{statusCode:"404",errorMessage:"Something Wrong With Deletion"})
         }
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -153,10 +161,12 @@ const clearCart = async (req, res) => {
             res.redirect("/cart")
         }
         else {
-            return res.status('404').send("Something Wrong with deletion")
+            return res.status(404).render("errorPage",{statusCode:"404",errorMessage:"Something Wrong With Deletion"})
         }
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -171,7 +181,9 @@ const wishlistPage = async (req, res) => {
 
         res.render("wishlist", { category: category, productData: productData, userData: userData })
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -206,7 +218,9 @@ const addToWishlist = async (req, res) => {
         }
 
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -223,10 +237,12 @@ const deleteWishlistItem = async (req, res) => {
             res.redirect("/wishlist")
         }
         else {
-            return res.status('404').send("Something Wrong with deletion")
+            return res.status(404).render("errorPage",{statusCode:"404",errorMessage:"Something Wrong With Deletion"})
         }
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 

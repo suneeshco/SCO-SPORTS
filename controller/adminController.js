@@ -1003,7 +1003,9 @@ const editCouponPage=async (req,res)=>{
         const couponDetails=await Coupon.findOne({_id:couponId})
         res.render("editCoupon",{couponDetails:couponDetails})
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 

@@ -125,7 +125,7 @@
                             
                         </div>
                         <div class="card-body">
-                            <form action="/addCoupon" method="post" onsubmit="return checkCoupon()" >
+                            <form action="/admin/addCoupon" method="post" onsubmit="return checkCoupon()" >
                                 <div class="mb-4">
                                     <div class="row">
                                         <div class="col-lg-4">
@@ -207,7 +207,7 @@
                                     <%const dateTimeStamp= new Date(couponDetails[i].couponExpiry)
                                     const expiryDate = dateTimeStamp.toLocaleDateString();%>
                                     <td><%=expiryDate%></td>
-                                    <td><a href="/couponManagement/edit/<%=couponDetails[i]._id%>" class="btn btn-success">Edit</a>
+                                    <td><a href="/admin/couponManagement/edit/<%=couponDetails[i]._id%>" class="btn btn-success">Edit</a>
                                         <a href="" class="btn btn-danger" onclick="return confirmDelete('<%=couponDetails[i]._id%>')" >Delete</a>
                                     </td>
                                 </tr>

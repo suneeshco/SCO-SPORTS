@@ -171,4 +171,6 @@ adminRoute.get("/editBanner",adminController.editBannerPage)
 adminRoute.post("/editBanner",upload2.single('image'),adminController.editBanner)
 
 
+
+
 module.exports=adminRoute

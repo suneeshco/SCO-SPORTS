@@ -114,8 +114,8 @@
                             <p class="card-text">Order ID: <%= order.orderId %></p>
                             <p class="card-text">Reason: <%= order.returnReason %></p>
                             <div class="btn-group" role="group" aria-label="Return Actions">
-                                <a href="/approveReturn/<%=order._id%>" class="btn btn-success">Approve</a>
-                                <a href="/rejectReturn/<%=order._id%>" class="btn btn-danger">Reject</a>
+                                <a href="/admin/approveReturn/<%=order._id%>" class="btn btn-success">Approve</a>
+                                <a href="/admin/rejectReturn/<%=order._id%>" class="btn btn-danger">Reject</a>
                             </div>
                         </div>
                     <% } %>
@@ -123,7 +123,7 @@
                 
                 
                 <div class="row mt-4">
-                    <form action="/updateOrder" method="post">
+                    <form action="/admin/updateOrder" method="post">
                     <div class="row">
                         <div class="col-md-6">
                             <h4>Order Id:<%=order.orderId%></h4>

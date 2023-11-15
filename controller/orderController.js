@@ -266,7 +266,9 @@ const onlinePayment=async (req,res)=>{
         
 
     } catch (error) {
-        res.status(500).send("Internal Server Error"); 
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage }); 
     }
 }
 
@@ -306,7 +308,9 @@ const applyCoupon=async (req,res)=>{
         }
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -329,7 +333,9 @@ const orderDetailsPage = async (req, res) => {
         res.render("userOrders", { category: category, order: order, userData: userData,page:pageNumber,pageLimit })
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -360,7 +366,9 @@ const orderDetails = async (req, res) => {
         res.render("orderDetails", { category: category, addressData: addressData, order: order, productData: productData, items: orderDetails.items, userData: userData, deliveryDate: deliveryDate, orderedDate: orderedDate })
     } catch (error) {
         console.log(error.message)
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -392,7 +400,9 @@ const cancelOrder = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -407,7 +417,9 @@ const returnOrderApply = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 
 }
@@ -424,7 +436,9 @@ const cancelReturn = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 
 }
@@ -632,7 +646,9 @@ const downloadInvoice = async (req, res) => {
 
   } catch (error) {
     console.log(error);
-    res.status(500).send('Error generating the invoice');
+    const statusCode = 500;
+    const errorMessage = "Error During Generating Invoice";
+    res.status(statusCode).render('errorPage', { statusCode, errorMessage });
   }
 };
 
