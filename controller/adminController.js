@@ -209,9 +209,16 @@ const forget = async (req, res) => {
 
 
 const categoryPage = async (req, res) => {
-    const categoryList = await Category.find({})
+    
     try {
-        res.render("category", { categoryList: categoryList })
+        let limit=6
+        let page=req.query.page
+        let pageNumber=page ? parseInt(page) : 1
+        let skip=(pageNumber - 1) * limit
+        const categoryLists = await Category.find({})
+        const categoryList = await Category.find({}).skip(skip).limit(limit)
+        let pageLimit=Math.ceil(categoryLists.length/limit)
+        res.render("category", { categoryList: categoryList,page,pageLimit })
     } catch (error) {
         res.status(500).send("Internal Server Error");
     }
@@ -235,7 +242,7 @@ const addCategory = async (req, res) => {
             })
             const addSuccess = await category.save()
             if (addSuccess) {
-                res.redirect("/admin/category")
+                res.redirect("/admin/category?page=1")
             }
             else {
                 res.render("category", { message: "Something Went Wrong" })
@@ -253,7 +260,7 @@ const deleteCategory = async (req, res) => {
     try {
         const id = req.query.id
         await Category.deleteOne({ _id: id })
-        res.redirect("/admin/category")
+        res.redirect("/admin/category?page=1")
     } catch (error) {
         res.status(500).send("Internal Server Error");
     }
@@ -304,7 +311,7 @@ const editCategory = async (req, res) => {
                     
 
 
-                res.redirect('/admin/category');
+                res.redirect('/admin/category?page=1');
             }
         }
         // const id=req.body.categoryId
@@ -624,7 +631,7 @@ const usersStatusBlock = async (req, res) => {
 
 
         const users = await Customer.findByIdAndUpdate({ _id: req.query.id }, { $set: { status: false } })
-        res.redirect("/admin/users")
+        res.redirect("/admin/users?page=1")
 
     } catch (error) {
         res.status(500).send("Internal Server Error");
@@ -636,7 +643,7 @@ const usersStatusUnblock = async (req, res) => {
 
 
         const users = await Customer.findByIdAndUpdate({ _id: req.query.id }, { $set: { status: true } })
-        res.redirect("/admin/users")
+        res.redirect("/admin/users?page=1")
 
     } catch (error) {
         res.status(500).send("Internal Server Error");
@@ -657,8 +664,15 @@ const usersStatusUnblock = async (req, res) => {
 
 const brandsShowPage = async (req, res) => {
     try {
-        const brandData = await Brand.find({})
-        res.render("brands", { brandData: brandData })
+
+        let limit=6
+        let page=req.query.page
+        let pageNumber=page ? parseInt(page) : 1
+        let skip=(pageNumber - 1) * limit
+        const brandDatas = await Brand.find({})
+        let pageLimit=Math.ceil(brandDatas.length/limit)
+        const brandData = await Brand.find({}).skip(skip).limit(limit)
+        res.render("brands", { brandData: brandData,page,pageLimit })
     } catch (error) {
         res.status(500).send("Internal Server Error");
     }
@@ -830,8 +844,15 @@ const deleteBrand = async (req, res) => {
 
 const orderDetailsPage=async (req,res)=>{
     try {
-        const order=await Order.find({}).sort({createdOn:-1})
-        res.render("orderManagement",{order:order})
+
+        let limit=6
+        let page=req.query.page
+        let pageNumber=page ? parseInt(page) : 1
+        let skip=(pageNumber - 1) * limit
+        const orders=await Order.find({})
+        const order=await Order.find({}).sort({createdOn:-1}).skip(skip).limit(limit)
+        let pageLimit=Math.ceil(orders.length/limit)
+        res.render("orderManagement",{order:order,page,pageLimit})
     } catch (error) {
         res.status(500).send("Internal Server Error");
     }
@@ -931,7 +952,7 @@ const updateOrder=async (req,res)=>{
            
             
         }
-        res.redirect("/admin/orders")
+        res.redirect("/admin/orders?page=1")
     } catch (error) {
         res.status(500).send("Internal Server Error");
     }
@@ -968,7 +989,7 @@ const approveReturn=async (req,res)=>{
                     orderId:orderDetail._id
                 })
                 await customer.save()
-            res.redirect("/admin/orders")
+            res.redirect("/admin/orders?page=1")
         }
     } catch (error) {
         res.status(500).send("Internal Server Error");
@@ -982,7 +1003,7 @@ const rejectReturn=async (req,res)=>{
         const orderId=req.params.orderId
         const edit = await Order.updateOne({_id:orderId},{$set:{return:false,returnStatus:"return rejected"}})
         if(edit){
-            res.redirect("/admin/orders")
+            res.redirect("/admin/orders?page=1")
         }
     } catch (error) {
         res.status(500).send("Internal Server Error");
@@ -1001,10 +1022,16 @@ const rejectReturn=async (req,res)=>{
 
 const couponManagementPage=async (req,res)=>{
     try {
-        const couponDetails=await Coupon.find({})
-        
 
-        res.render("couponManagement",{couponDetails:couponDetails})
+        let limit=6
+        let page=req.query.page
+        let pageNumber=page ? parseInt(page) : 1
+        let skip=(pageNumber - 1) * limit
+        const couponsDetails=await Coupon.find({})
+        const couponDetails=await Coupon.find({}).skip(skip).limit(limit)
+        let pageLimit=Math.ceil(couponsDetails.length/limit)
+
+        res.render("couponManagement",{couponDetails:couponDetails,page,pageLimit})
     } catch (error) {
         res.status(500).send("Internal Server Error");
     }
@@ -1044,7 +1071,7 @@ const addCoupon=async (req,res)=>{
             const coup=await coupon.save()
             console.log(coup.couponExpiry);
             if(coup){
-                res.redirect("/admin/coupons")
+                res.redirect("/admin/coupons?page=1")
             }
         }
         
@@ -1065,7 +1092,7 @@ const editCoupon=async (req,res)=>{
             maximumAmount:req.body.maximumAmount,
             minimumAmount:req.body.minimumAmount}})
             if(coup){
-                res.redirect("/admin/coupons")
+                res.redirect("/admin/coupons?page=1")
             }
     } catch (error) {
         res.status(500).send("Internal Server Error");
@@ -1078,7 +1105,7 @@ const deleteCoupon=async (req,res)=>{
         const id=req.query.id
          let deleted=await Coupon.deleteOne({_id:id})
         if(deleted){
-            res.redirect("/admin/coupons")
+            res.redirect("/admin/coupons?page=1")
         }
     } catch (error) {
         res.status(500).send("Internal Server Error");
@@ -1550,8 +1577,15 @@ const salesFilter = async (req, res) => {
 
 const bannerPage=async (req,res)=>{
     try {
-        const banner=await Banner.find({})
-        res.render("banner",{banner})
+
+        let limit=6
+        let page=req.query.page
+        let pageNumber=page ? parseInt(page) : 1
+        let skip=(pageNumber - 1) * limit
+        const banners=await Banner.find({})
+        const banner=await Banner.find({}).skip(skip).limit(limit)
+        let pageLimit=Math.ceil(banners.length/limit)
+        res.render("banner",{banner,page,pageLimit})
     } catch (error) {
         console.log(error);
         res.status(500).send('No Banner Page')
@@ -1597,7 +1631,7 @@ const addBanner=async (req,res)=>{
        const result =  await banner.save()
        if(result){
         console.log("banner updated")
-        res.redirect('/admin/banner')
+        res.redirect('/admin/banner?page=1')
        }else{
         res.json({error:"error updating banner , try again"})
        }
@@ -1686,7 +1720,7 @@ const editBanner = async (req, res) => {
             
 
             if(update){
-                res.redirect("/admin/banner")
+                res.redirect("/admin/banner?page=1")
             }   
         } else {
             res.status(404).json({ error: "Banner not found" });

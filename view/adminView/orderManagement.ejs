@@ -61,24 +61,24 @@
                 </li>
 
                 <li class="menu-item">
-                    <a class="menu-link" href="/admin/brands"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="/admin/brands?page=1"> <i class="icon material-icons md-stars"></i>
                         <span class="text">Brands</span> </a>
                 </li>
 
                 <li class="menu-item">
-                    <a class="menu-link" href="/admin/category"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="/admin/category?page=1"> <i class="icon material-icons md-stars"></i>
                         <span class="text">Category Management</span> </a>
                 </li>
                 <li class="menu-item active">
-                    <a class="menu-link" href="admin/orders"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="/admin/orders?page=1"> <i class="icon material-icons md-stars"></i>
                         <span class="text">Order Management</span> </a>
                 </li>
                 <li class="menu-item ">
-                    <a class="menu-link" href="/admin/coupons"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="/admin/coupons?page=1"> <i class="icon material-icons md-stars"></i>
                         <span class="text">Coupon Management</span> </a>
                 </li>
                 <li class="menu-item ">
-                    <a class="menu-link" href="/admin/banner"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="/admin/banner?page=1"> <i class="icon material-icons md-stars"></i>
                         <span class="text">Banner Management</span> </a>
                 </li>
                 <li class="menu-item ">
@@ -188,6 +188,34 @@
                         </table>
                         <%}%>
                     </div>
+
+
+                    <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-start">
+                                <li class="page-item">
+                                    <%if(page==1){%>
+                                        <a class="page-link" ><i class="fi-rs-angle-double-small-left"><</i></a>
+                                    <%}else{%>
+                                    <a class="page-link" href="/admin/orders?page=<%=parseInt(page)-1%>"><i class="fi-rs-angle-double-small-left"><</i></a>
+                                    <%}%>
+                                </li>
+                                
+                                    <li class="page-item active">
+                                        <a class="page-link" href=""><%=page %></a>
+                                    </li>
+                                
+                                <li class="page-item">
+                                    <%if(page==pageLimit){%>
+                                        <a class="page-link" ><i class="fi-rs-angle-double-small-right">></i></a>
+                                    <%}else{%>
+                                    <a class="page-link" href="/admin/orders?page=<%=parseInt(page)+1%>"><i class="fi-rs-angle-double-small-right">></i></a>
+                                    <%}%>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
                 </div> <!-- card-body end// -->
             </div> <!-- card end// -->
             <div class="pagination-area mt-15 mb-50">

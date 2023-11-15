@@ -63,24 +63,24 @@
                 </li>
 
                 <li class="menu-item ">
-                    <a class="menu-link " href="/admin/brands"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link " href="/admin/brands?page=1"> <i class="icon material-icons md-stars"></i>
                         <span class="text">Brands</span> </a>
                 </li>
 
                 <li class="menu-item">
-                    <a class="menu-link" href="/admin/category"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="/admin/category?page=1"> <i class="icon material-icons md-stars"></i>
                         <span class="text">Category Management</span> </a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="/admin/orders?page=1"> <i class="icon material-icons md-stars"></i>
                         <span class="text">Order Management</span> </a>
                 </li>
                 <li class="menu-item ">
-                    <a class="menu-link" href="/admin/coupons"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="/admin/coupons?page=1"> <i class="icon material-icons md-stars"></i>
                         <span class="text">Coupon Management</span> </a>
                 </li>
                 <li class="menu-item active">
-                    <a class="menu-link" href="/admin/banner"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="/admin/banner?page=1"> <i class="icon material-icons md-stars"></i>
                         <span class="text">Banner Management</span> </a>
                 </li>
                 <li class="menu-item ">
@@ -212,7 +212,7 @@
                                             </td>
     
                                             <td class="image product-thumbnail">
-                                                <img src="/admin-assets/imgs/banner/<%=banner[i].Image%>"   alt="Banner Image" class="card-img-top">
+                                                <img src="/admin-assets/imgs/croppedBanner/<%=banner[i].Image%>"   alt="Banner Image" class="card-img-top">
                                             </td>
                                             <td>
                                                 <span style="color: black; font-weight: bolder;"><%=banner[i].h1%><br><%=banner[i].h2%><br></span> 
@@ -230,6 +230,31 @@
                                         <%}%>
                                 </tbody>
                             </table>
+                            <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-start">
+                                        <li class="page-item">
+                                            <%if(page==1){%>
+                                                <a class="page-link" ><i class="fi-rs-angle-double-small-left"><</i></a>
+                                            <%}else{%>
+                                            <a class="page-link" href="/admin/banner?page=<%=parseInt(page)-1%>"><i class="fi-rs-angle-double-small-left"><</i></a>
+                                            <%}%>
+                                        </li>
+                                        
+                                            <li class="page-item active">
+                                                <a class="page-link" href=""><%=page %></a>
+                                            </li>
+                                        
+                                        <li class="page-item">
+                                            <%if(page==pageLimit){%>
+                                                <a class="page-link" ><i class="fi-rs-angle-double-small-right">></i></a>
+                                            <%}else{%>
+                                            <a class="page-link" href="/admin/banner?page=<%=parseInt(page)+1%>"><i class="fi-rs-angle-double-small-right">></i></a>
+                                            <%}%>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>
