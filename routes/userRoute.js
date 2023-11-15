@@ -65,6 +65,7 @@ userRoute.get("/clearCart/:id",cartController.clearCart)
 userRoute.get("/wishlist",validate.requireAuth,cartController.wishlistPage)
 userRoute.post("/addToWishlist",cartController.addToWishlist)
 userRoute.get("/wishlistDelete/:id",cartController.deleteWishlistItem)
+userRoute.post("/addToCartFromWishlist",cartController.addToCartFromWishlist)
 
 
 

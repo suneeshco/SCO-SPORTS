@@ -248,6 +248,58 @@ const deleteWishlistItem = async (req, res) => {
 
 
 
+const addToCartFromWishlist=async (req,res)=>{
+    try {
+        const  productId  = req.body.productId
+console.log(productId,"56565656565")
+        const userId = req.body.userId;
+        if (!productId) {
+          return res.status(400).json({ error: "Product ID is required" });
+        }
+        
+        const user = await Customer.findById(userId);
+    
+        const product = await Product.findById(productId);
+        if (!product) {
+          return res.status(404).json({ error: "Product not found" });
+        }
+    
+        const size = product.size
+        if (user) {
+          const existingCartItem = user.cart.find(
+            (item) => item.productId.toString() === productId.toString());
+    
+          if (existingCartItem) {
+            // If it exists, increase the quantity
+            existingCartItem.quantity += 1;
+            existingCartItem.subtotal += product.offerPrice;
+          } else {
+            // If it doesn't exist, add a new item to the cart
+            user.cart.push({
+              productId: productId,
+              quantity: 1,
+              size: size,
+              subtotal: product.offerPrice,
+            });
+          }
+    
+          user.wishlist.pull({ productId: productId });
+          await user.save();
+    
+          console.log(
+            "Product added to cart successfully and removed from wishlist"
+          );
+          res.redirect("/wishlist");
+        } else {
+          res.redirect("/login");
+        }  
+    } catch (error) {
+        console.log(error)
+        res.status(500).render("errorPage",{statusCode:"500",errorMessage:"Internal Server Error"})
+    }
+}
 
 
-module.exports={cartShowPage,addToCart,updateQuantity,deleteCartItem,clearCart,wishlistPage,addToWishlist,deleteWishlistItem}
+
+module.exports={cartShowPage,addToCart,updateQuantity,deleteCartItem,clearCart,wishlistPage,addToWishlist,
+    deleteWishlistItem,addToCartFromWishlist}

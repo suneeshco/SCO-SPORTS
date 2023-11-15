@@ -294,13 +294,14 @@
                                         <th scope="col" colspan="2">Product</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Stock Status</th>
-                                        
+                                        <th scope="col">Action</th>
                                         <th scope="col">Remove</th>
                                     </tr>
                                 </thead>
-                                <form action="/addToCart" method="post">
+                                
                                 <tbody>
                                     <%for(let i=0;i< productData.length;i++){%>
+                                        <form action="/addToCartFromWishlist" method="post">
                                     <tr>
                                         <td class="image product-thumbnail"><img src="/admin-assets/imgs/croppedProducts/<%=productData[i].images[0].url%>" alt="#"></td>
                                         <td class="product-des product-name">
@@ -314,19 +315,23 @@
                                             <%if(productData[i].stock< 1){%>
                                                 <span class="color3 font-weight-bold">Out of Stock</span>
                                             <%}else{%>
-                                            <span class="color3 font-weight-bold">In Stock</span>
+                                            <span class="color3 font-weight-bold">In Stock</span><%=productData[i]._id%>
                                             <%}%>
                                         </td>
+                                        
                                         <input type="hidden" value="<%=productData[i]._id%>" name="productId">
                                         <input type="hidden" value="<%=userData._id%>" name="userId">
                                         <input type="hidden" name="size" value="<%= productData[i].size %>">
-                                        
+                                        <td class="text-right" data-title="Cart">
+                                            <button class="btn btn-sm"><i class="fi-rs-shopping-bag mr-5"></i>Add to cart</button>
+                                        </td>
                                         <td class="action" data-title="Remove"><a href="/wishlistDelete/<%=userData.wishlist[i]._id%>"><i class="fi-rs-trash"></i></a></td>
                                     </tr>
+                                </form>
                                     <%}%>
                                     
                                 </tbody>
-                            </form>
+                           
                             </table>
                             <%}%>
                         </div>
