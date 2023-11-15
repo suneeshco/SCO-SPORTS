@@ -38,13 +38,13 @@
                     </a>
                 </li>
                 <li class="menu-item ">
-                    <a class="menu-link" href="/admin/products"> <i class="icon material-icons md-shopping_bag"></i>
+                    <a class="menu-link" href="/admin/products?page=1"> <i class="icon material-icons md-shopping_bag"></i>
                         <span class="text">Products</span>
                     </a>
                     
                 </li>
                 <li class="menu-item active">
-                    <a class="menu-link" href="/admin/users"> <i class="icon material-icons md-person"></i>
+                    <a class="menu-link" href="/admin/users?page=1"> <i class="icon material-icons md-person"></i>
                         <span class="text">Users</span>
                     </a> 
                 </li>
@@ -156,7 +156,9 @@
                                     <%}else{%>
                                         <td><span class="badge rounded-pill alert-danger">Blocked</span></td>
                                         <%}%>
-                                    <td><%=user[i].date%></td>
+                                    <%const time= new Date(user[i].date)%>
+                                    <%const timeForm= time.toLocaleDateString()%>
+                                    <td><%=timeForm%></td>
                                     <td class="text-end">
                                         
                                         <%if(user[i].status==true){%>
@@ -173,11 +175,28 @@
                     </div>
                 </div> <!-- card-body end// -->
             </div> <!-- card end// -->
-            <div class="pagination-area mt-15 mb-50">
+            <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-start">
-                        <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                        <li class="page-item">
+                            <%if(page==1){%>
+                                <a class="page-link" ><i class="fi-rs-angle-double-small-left"><<</i></a>
+                            <%}else{%>
+                            <a class="page-link" href="/admin/users?page=<%=parseInt(page)-1%>"><i class="fi-rs-angle-double-small-left"><<</i></a>
+                            <%}%>
+                        </li>
                         
+                            <li class="page-item active">
+                                <a class="page-link" href=""><%=page%></a>
+                            </li>
+                        
+                        <li class="page-item">
+                            <%if(page==pageLimit){%>
+                                <a class="page-link" ><i class="fi-rs-angle-double-small-right">>></i></a>
+                            <%}else{%>
+                            <a class="page-link" href="/admin/users?page=<%=parseInt(page)+1%>"><i class="fi-rs-angle-double-small-right">>></i></a>
+                            <%}%>
+                        </li>
                     </ul>
                 </nav>
             </div>

@@ -171,7 +171,7 @@
                                 <ul>
                                     <li><a class="active" href="/userHome">Home </a></li>
                                     <li><a href="/about">About</a></li>
-                                    <li><a href="/search">Shop </a></li>
+                                    <li><a href="/search?pages=1">Shop </a></li>
                                     <li><a href="/contact">Contact</a></li>
                                 </ul>
                             </nav>
@@ -268,7 +268,7 @@
                             <li class="menu-item-has-children"><span class="menu-expand"></span><a
                                     href="/about">About</a>
                             </li>
-                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="/shop">shop</a>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="/search?pages=1">shop</a>
                             <li class="menu-item-has-children"><span class="menu-expand"></span><a
                                     href="/contact">Contact</a>
 
@@ -338,7 +338,9 @@
                             </div>
                         </div>
                         <div class="row product-grid-3">
-                            
+                            <%if(homeData.length< 0){%>
+                                <h4 style="color: red;">No products found..</h4>
+                            <%}else{%>
                             <%for(let i=0;i<homeData.length;i++){%>
                                 <div class="col-lg-4 col-md-4 col-12 col-sm-6">
                                     <div class="product-cart-wrap mb-30">
@@ -402,18 +404,30 @@
                                     </div>
                                 </div>
                                 <%}%>
+                                <%}%>
                         </div>
                         <!--pagination-->
                         <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-start">
-                                    <% for (let i = 1; i <= page; i++) { %>
-                                        <li class="page-item <%= i === parseInt(pages) ? 'active' : '' %>">
-                                            <a class="page-link" href="/search?pages=<%=i%>&categ=<%=categ%>&query=<%=searchQuery%>&sort=<%=sort%>"><%= i %></a>
-                                        </li>
-                                    <% } %>
                                     <li class="page-item">
-                                        <a class="page-link" href="#"><i class="fi-rs-angle-double-small-right"></i></a>
+                                        <%if(pages==1){%>
+                                            <a class="page-link" ><i class="fi-rs-angle-double-small-left"></i></a>
+                                        <%}else{%>
+                                        <a class="page-link" href="/search?pages=<%=parseInt(pages)-1%>&categ=<%=categ%>&query=<%=searchQuery%>&sort=<%=sort%>"><i class="fi-rs-angle-double-small-left"></i></a>
+                                        <%}%>
+                                    </li>
+                                    
+                                        <li class="page-item active">
+                                            <a class="page-link" href=""><%=pages %></a>
+                                        </li>
+                                    
+                                    <li class="page-item">
+                                        <%if(pages==page){%>
+                                            <a class="page-link" ><i class="fi-rs-angle-double-small-right"></i></a>
+                                        <%}else{%>
+                                        <a class="page-link" href="/search?pages=<%=parseInt(pages)+1%>&categ=<%=categ%>&query=<%=searchQuery%>&sort=<%=sort%>"><i class="fi-rs-angle-double-small-right"></i></a>
+                                        <%}%>
                                     </li>
                                 </ul>
                             </nav>

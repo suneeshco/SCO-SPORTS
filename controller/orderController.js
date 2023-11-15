@@ -318,7 +318,7 @@ const applyCoupon=async (req,res)=>{
 
 const orderDetailsPage = async (req, res) => {
     try {
-        let limit=2
+        let limit=6
         let page=req.query.page
         let pageNumber=page ? parseInt(page) : 1
         let skip=(pageNumber - 1) * limit
@@ -326,7 +326,7 @@ const orderDetailsPage = async (req, res) => {
         const order = await Order.find({ customerId: res.locals.user._id,paymentStatus:true }).sort({createdOn:-1}).skip(skip).limit(limit)
         const userData = await Customer.findOne({ _id: res.locals.user._id })
         const category = await Category.find({ list: true })
-        let pageLimit=Math.floor(totalCount/limit)
+        let pageLimit=Math.ceil(totalCount/limit)
         console.log(pageLimit);
 
 

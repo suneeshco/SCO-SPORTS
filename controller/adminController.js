@@ -346,9 +346,16 @@ const addProductPage = async (req, res) => {
 
 const productShowPage = async (req, res) => {
     try {
-        const product = await Product.find({ list: true })
+
+        let limit=6
+        let page=req.query.page
+        let pageNumber=page ? parseInt(page) : 1
+        let skip=(pageNumber - 1) * limit
+        const products = await Product.find({ list: true })
+        const product=await Product.find({list:true}).skip(skip).limit(limit)
         const category=await Category.find({list:true})
-        res.render("productShow", { product: product,category:category })
+        let pageLimit=Math.ceil(products.length/limit)
+        res.render("productShow", { product: product,category:category,pageLimit,page })
     } catch (error) {
         res.status(500).send("Internal Server Error");
     }
@@ -599,8 +606,14 @@ const salesReportPage=async (req,res)=>{
 
 const usersShowPage = async (req, res) => {
     try {
-        const user = await Customer.find({})
-        res.render("userList", { user: user })
+        let limit=6
+        let page=req.query.page
+        let pageNumber=page ? parseInt(page) : 1
+        let skip=(pageNumber - 1) * limit
+        const users = await Customer.find({})
+        const user = await Customer.find({}).skip(skip).limit(limit)
+        let pageLimit=Math.ceil(users.length/limit)
+        res.render("userList", { user: user,page,pageLimit })
     } catch (error) {
         res.status(500).send("Internal Server Error");
     }

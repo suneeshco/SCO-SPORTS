@@ -252,7 +252,7 @@
                                 href="/about">About</a>
                         </li>
                             <li class="menu-item-has-children"><span class="menu-expand"></span><a
-                                    href="/shop">shop</a>
+                                    href="/search?pages=1">shop</a>
                             <li class="menu-item-has-children"><span class="menu-expand"></span><a href="/contact">Contact</a>
 
                             </li>
@@ -337,7 +337,9 @@
                 <div class="tab-content wow fadeIn animated" id="myTabContent">
                     <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
                         <div class="row product-grid-4">
-                            <%for(let i=0;i<homeData.length;i++){%>
+                            <%let length=homeData.length%>
+                            <%if(length>8){length=8}%>
+                            <%for(let i=0;i< length;i++){%>
                                 <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                                     <div class="product-cart-wrap mb-30">
                                         <div class="product-img-action-wrap">

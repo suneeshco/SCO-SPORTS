@@ -18,6 +18,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/LOGO.png">
     <!-- Template CSS -->
     <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" >
+<script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
     <style>
         .adjust_size_productName {
@@ -383,7 +385,7 @@ align-items: center;
                                         <%}else{%>   
                                     
                                         
-                                        <table class="table">
+                                        <table class="table" id="example">
                                             <thead>
                                                 <tr>
                                                     <th>Order</th>
@@ -420,14 +422,25 @@ align-items: center;
                                         <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
                                             <nav aria-label="Page navigation example">
                                                 <ul class="pagination justify-content-start">
-                                                    <% for (let i = 1; i <= pageLimit; i++) { %>
-                                                        <li class="page-item <%= i === parseInt(page) ? 'active' : '' %>">
-                                                            <a class="page-link" href="/userOrders?page=<%=i%>"><%= i %></a>
+                                                    <li class="page-item">
+                                                        <%if(page==1){%>
+                                                            <a class="page-link" ><i class="fi-rs-angle-double-small-left"></i></a>
+                                                        <%}else{%>
+                                                        <a class="page-link" href="/userOrders?page=<%=parseInt(page)-1%>"><i class="fi-rs-angle-double-small-left"></i></a>
+                                                        <%}%>
+                                                    </li>
+                                                    
+                                                        <li class="page-item active">
+                                                            <a class="page-link" href=""><%=page %></a>
                                                         </li>
-                                                    <% } %>
-                                                    <!-- <li class="page-item">
-                                                        <a class="page-link" href="#"><i class="fi-rs-angle-double-small-right"></i></a>
-                                                    </li> -->
+                                                    
+                                                    <li class="page-item">
+                                                        <%if(page==pageLimit){%>
+                                                            <a class="page-link" ><i class="fi-rs-angle-double-small-right"></i></a>
+                                                        <%}else{%>
+                                                        <a class="page-link" href="/userOrders?page=<%=parseInt(page)+1%>"><i class="fi-rs-angle-double-small-right"></i></a>
+                                                        <%}%>
+                                                    </li>
                                                 </ul>
                                             </nav>
                                         </div>
@@ -552,6 +565,12 @@ align-items: center;
         </div>
     </div>
     <!-- Vendor JS-->
+    <script>
+        $(document).ready(function () {
+                          new DataTable('#example');
+                  
+                      })
+      </script>
     
     <script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <script src="/assets/js/vendor/jquery-3.6.0.min.js"></script>

@@ -1023,7 +1023,7 @@ const couponDetailsPage=async (req,res)=>{
         } })
         res.render("couponDetails",{userData,category,coupon})
     } catch (error) {
-        console.log(error);
+        console.log(error)
         const statusCode = 500;
         const errorMessage = "Internal Server Error";
         res.status(statusCode).render('errorPage', { statusCode, errorMessage });

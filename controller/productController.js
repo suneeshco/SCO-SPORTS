@@ -166,15 +166,16 @@ const loadSearchItems = async (req, res) => {
       }
       
       
-      const limit=6
+      const limit=4
       const pageNumber = pages ? parseInt(pages) : 1;
      const skipCount = (pageNumber - 1) * limit;
      const results=await Product.find(filter)
      const searchResults =  await Product.find(filter).populate('category').sort({offerPrice:sort}).skip(skipCount).limit(limit)
 
-        console.log(searchResults);
+        
         
         const page=Math.ceil(results.length/limit)
+console.log(results.length);
         res.render("shopAll",{category:category,userData:userData,homeData:searchResults,page:page,searchQuery:searchQuery,categ:categ,pages:pages,sort:sort})
     } catch (error) {
         console.error('Search error:', error);
@@ -183,24 +184,6 @@ const loadSearchItems = async (req, res) => {
         res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
-
-
-
-
-
-
-
-
-
-//ADMIN SIDE
-
-
-
-
-
-
-
-
 
 
 
