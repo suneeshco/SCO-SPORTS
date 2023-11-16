@@ -70,11 +70,18 @@
             background-color: #0056b3;
         }
     </style>
-
+    <style>
+        .product-image {
+            max-width: 100px; 
+            max-height: 100px; 
+            width: auto;
+            height: auto;
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Add these links to your HTML -->
+    
 
 
 
@@ -221,7 +228,7 @@
                         <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block" style="padding-left: 180px;">
                             <nav>
                                 <ul>
-                                    <li><a class="active" href="/userHome">Home </a></li>
+                                    <li><a href="/userHome">Home </a></li>
                                     <li><a href="/about">About</a></li>
                                     <li><a href="/search?pages=1">Shop </a></li>
                                     <li><a href="/contact">Contact</a></li>
@@ -499,68 +506,36 @@
 
                     <h4>Product Details</h4>
                     <div class="card mt-30 mb-30">
-
-
-                        <div class="card mt-5 mb-5" style="background-color: #e4e6e5;">
-                            <div class="pt-1 pb-2 ">
-                                <div class="row">
-                                    <div class="col-md-3 d-flex justify-content-center align-items-center">
-                                        <h4>Image</h4>
-                                    </div>
-                                    <div class="col-md-3 d-flex justify-content-center align-items-center">
-                                        <h4>Product Name</h4>
-                                    </div>
-                                    <div class="col-md-3 d-flex justify-content-center align-items-center">
-                                        <h4>Quantity</h4>
-                                    </div>
-                                    <div class="col-md-3 d-flex justify-content-center align-items-center">
-                                        <h4>SubTotal</h4>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <%for(let i=0;i< items.length;i++){%>
-                            <div class="card mt-5 mb-5" style="background-color: #e4e6e5;">
-                                <div class="pt-2 pb-2 ">
-
-
-
-                                    <div class="row">
-
-                                        <div class="col-md-3 d-flex  " style="height: 50px; ">
-                                            <div class="container-fluid align-items-center justify-content-center"
-                                                style="height: 105px; width: 105px;">
-                                                <img src="/admin-assets/imgs/croppedProducts/<%=productData[i].images[0].url%>"
-                                                    class="img-fluid" alt="Product 1">
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-3 d-flex justify-content-center align-items-center">
-                                            <h5 class="card-title">
-                                                <%=productData[i].title%>
-                                            </h5>
-
-                                        </div>
-                                        <div class="col-md-3 d-flex justify-content-center align-items-center">
-                                            <h5 class="card-title">
-                                                <%=items[i].quantity%>
-                                            </h5>
-
-                                        </div>
-                                        <div class="col-md-3 d-flex justify-content-center align-items-center">
-                                            <h5 class="card-title">
-                                                <%=items[i].subtotal%>
-                                            </h5>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                            <%}%>
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr style="background-color: rgb(127, 87, 206);">
+                                    <th class="text-center">Image</th>
+                                    <th class="text-center">Product Name</th>
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-center">SubTotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (let i = 0; i < items.length; i++) { %>
+                                <tr style="background-color: #b8b7b9;">
+                                    <td class="text-center">
+                                        <img src="/admin-assets/imgs/croppedProducts/<%= productData[i].images[0].url %>" class="img-fluid product-image" alt="Product 1">
+                                    </td>
+                                    <td>
+                                        <%= productData[i].title %>
+                                    </td>
+                                    <td class="text-center">
+                                        <%= items[i].quantity %>
+                                    </td>
+                                    <td class="text-center">
+                                        <%= items[i].subtotal %>
+                                    </td>
+                                </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
                     </div>
+
 
                 </div>
             </div>

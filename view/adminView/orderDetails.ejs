@@ -17,6 +17,14 @@
     <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/LOGO.png">
     <!-- Template CSS -->
     <link href="../../admin-assets/css/main.css" rel="stylesheet" type="text/css" />
+    <style>
+        .product-image {
+            max-width: 100px; 
+            max-height: 100px; 
+            width: auto;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -50,28 +58,28 @@
                 </li>
 
                 <li class="menu-item">
-                    <a class="menu-link" href="/admin/brands?page=1"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="/admin/brands?page=1"> <i class="icon material-icons md-local_offer"></i>
                         <span class="text">Brands</span> </a>
                 </li>
 
                 <li class="menu-item">
-                    <a class="menu-link" href="/admin/category?page=1"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="/admin/category?page=1"> <i class="icon material-icons md-category"></i>
                         <span class="text">Category Management</span> </a>
                 </li>
                 <li class="menu-item active">
-                    <a class="menu-link" href="/admin/orders?page=1"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="/admin/orders?page=1"> <i class="icon material-icons md-shopping_cart"></i>
                         <span class="text">Order Management</span> </a>
                 </li>
                 <li class="menu-item ">
-                    <a class="menu-link" href="/admin/coupons?page=1"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="/admin/coupons?page=1">  <i class="icon material-icons md-card_giftcard"></i>
                         <span class="text">Coupon Management</span> </a>
                 </li>
                 <li class="menu-item ">
-                    <a class="menu-link" href="/admin/banner?page=1"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="/admin/banner?page=1"><i class="icon material-icons md-photo_library"></i>
                         <span class="text">Banner Management</span> </a>
                 </li>
                 <li class="menu-item ">
-                    <a class="menu-link" href="/admin/salesFilter?startDate=&endDate=&page=1"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="/admin/salesFilter?startDate=&endDate=&page=1"> <i class="icon material-icons md-show_chart"></i>
                         <span class="text">Sales Report</span> </a>
                 </li>
             </ul>
@@ -91,7 +99,7 @@
                         <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
                     </li>
                     <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="../admin-assets/imgs/people/avatar2.jpg" alt="User"></a>
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/admin-assets/imgs/people/avatar2.jpg" alt="User"></a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
                             <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account</a>
                             <div class="dropdown-divider"></div>
@@ -152,7 +160,7 @@
                         <!-- Card for Address, Order Summary, and Payment Method -->
                     <div class="card mt-10 mb-30">
                             
-                        <div class="pt-20 pb-50 m-10">
+                        <div class="pt-20 pb-50 m-10 " style="padding-left: 30px;">
                             <div class="row">
                                 <div class="col-md-3 ">
                                     <div><h5 class="card-title">Delivery Address</h5></div>
@@ -205,40 +213,37 @@
                         </div>
                     </div>
 
-                        <h4>Product Details</h4>
-                        <div class="card mt-30 mb-30">
-                            <%for(let i=0;i< items.length;i++){%>
-                            <div class="card mt-5 mb-5" style="background-color: #e4e6e5;">
-                            <div class="pt-2 pb-2 ">
-                                
-
-                                
-                                <div class="row">
-                                    
-                                    <div class="col-md-3" style="height: 50px;">
-                                        <div class="container-fluid" style="height: 130px; width: 130px;">
-                                            <img src="/admin-assets/imgs/croppedProducts/<%=productData[i].images[0].url%>" class="img-fluid" alt="Product 1">
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="col-md-3">
-                                        <h5 class="card-title"><%=productData[i].title%></h5>
-                                        
-                                    </div>
-                                    <div class="col-md-3">
-                                        <h5 class="card-title"><%=items[i].quantity%></h5>
-                                        
-                                    </div>
-                                    <div class="col-md-3">
-                                        <h5 class="card-title"><%=items[i].subtotal%></h5>
-                                        
-                                    </div>
-                                </div>
-                                
-                        </div>
+                    <h4>Product Details</h4>
+                    <div class="card mt-30 mb-30">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr style="background-color: rgb(127, 87, 206); color: black;">
+                                    <th class="text-center align-middle">Image</th>
+                                    <th class="text-center align-middle">Product Name</th>
+                                    <th class="text-center align-middle">Quantity</th>
+                                    <th class="text-center align-middle">SubTotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (let i = 0; i < items.length; i++) { %>
+                                <tr style="background-color: #b8b7b9; color: black;">
+                                    <td class="text-center align-middle">
+                                        <img src="/admin-assets/imgs/croppedProducts/<%= productData[i].images[0].url %>" class="img-fluid product-image" alt="Product 1">
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <%= productData[i].title %>
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <%= items[i].quantity %>
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <%= items[i].subtotal %>
+                                    </td>
+                                </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
                     </div>
-                    <%}%>
-                        </div>
                         <input type="hidden" value="<%=order._id%>" name="orderId" id="orderId">
                        <button class="btn btn-success" type="button" onclick="return confirmUpdate(this.form)">Update</button></a>
                     </form>
