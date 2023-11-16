@@ -34,7 +34,7 @@ const securePassword = async (password) => {
 
 const loadUserLogin = async (req, res) => {
     const category = await Category.find({ list: true })
-    res.render("userLogin", { category: category })
+    res.render("userLogin", { category: category,userData:null })
 }
 
 
@@ -49,14 +49,14 @@ const insertUser = async (req, res, next) => {
     if(ref.trim().length>0){
         const userRef=await Customer.findOne({referralCode:ref})
         if(!userRef){
-            return res.render("userSignUp", { message: "Invalid Referral", category: category,user })
+            return res.render("userSignUp", { message: "Invalid Referral", category: category,user,userData:null })
         }
     }
     if (checkEmail) {
-        res.render("userSignUp", { message: "Email already exists", category: category })
+        res.render("userSignUp", { message: "Email already exists", category: category,userData:null })
     }
     else if (req.body.password !== req.body.confirmPassword) {
-        res.render("userSignUp", { message: "Password is not Matching", category: category })
+        res.render("userSignUp", { message: "Password is not Matching", category: category,userData:null })
     }
     else {
         const sPassword = await securePassword(req.body.password)
@@ -86,7 +86,7 @@ const insertUser = async (req, res, next) => {
 const loadUserSignUp = async (req, res) => {
     try {
         const category = await Category.find({ list: true })
-    res.render("userSignUp", { category: category })
+    res.render("userSignUp", { category: category,userData:null })
     } catch (error) {
      console.log(error); 
      const statusCode = 500;
@@ -114,16 +114,16 @@ const verifyUser = async (req, res) => {
                 res.redirect("/userHome");
             }
             else {
-                res.render("userLogin", { message: "Invalid Password", category: category })
+                res.render("userLogin", { message: "Invalid Password", category: category ,userData:null})
             }
 
         } else {
-            res.render("userLogin", { message: "Your account has been blocked by Admin", category: category })
+            res.render("userLogin", { message: "Your account has been blocked by Admin", category: category,userData:null })
         }
 
     }
     else {
-        res.render("userLogin", { message: "Invalid Email", category: category })
+        res.render("userLogin", { message: "Invalid Email", category: category,userData:null })
     }
 }
 
@@ -173,7 +173,7 @@ const sendOtp = async (req, res) => {
 const otp = async (req, res) => {
     try {
         const category = await Category.find({ list: true })
-    res.render("otpPage", { category: category })
+    res.render("otpPage", { category: category ,userData:null})
     } catch (error) {
         const statusCode = 500;
         const errorMessage = "Something went wrong";
@@ -222,10 +222,10 @@ const verifyOtp = async (req, res) => {
             res.redirect("/userHome")
         }
         else {
-            res.render("userSignUp", { category: category })
+            res.render("userSignUp", { category: category ,userData:null})
         }
     } else {
-        res.render("otpPage", { message: "Wrong Otp", category: category })
+        res.render("otpPage", { message: "Wrong Otp", category: category,userData:null })
     }
 }
 
@@ -233,7 +233,7 @@ const verifyOtp = async (req, res) => {
 const loginOtp = async (req, res) => {
     try {
         const category = await Category.find({ list: true })
-        res.render("userLoginOtp", { category: category })
+        res.render("userLoginOtp", { category: category,userData:null })
     } catch (error) {
         const statusCode = 500;
         const errorMessage = "something went wrong";
@@ -305,15 +305,15 @@ const verifyLoginOtp = async (req, res) => {
                 res.redirect("/userHome")
             }
             else {
-                res.render("userLoginOtp", { message: "Invalid OTP", category: category })
+                res.render("userLoginOtp", { message: "Invalid OTP", category: category,userData:null })
             }
         } else {
-            res.render("userLoginOtp", { message: "Your account has been blocked by Admin", category: category })
+            res.render("userLoginOtp", { message: "Your account has been blocked by Admin", category: category,userData:null })
         }
 
     }
     else {
-        res.render("userLoginOtp", { message: "Invalid Email", category: category })
+        res.render("userLoginOtp", { message: "Invalid Email", category: category,userData:null })
     }
 }
 
@@ -324,7 +324,11 @@ const verifyLoginOtp = async (req, res) => {
 const forgotPasswordPage1 = async (req, res) => {
     try {
         const category = await Category.find({ list: true })
-        res.render("forgotPassword1", { category: category })
+        let userData=null
+        if(res.locals.user){
+            userData = await Customer.findOne({ _id: res.locals.user._id })
+        }
+        res.render("forgotPassword1", { category: category ,userData})
     } catch (error) {
         console.log(error);
         const statusCode = 500;
@@ -373,7 +377,7 @@ const forgotPassword1 = async (req, res) => {
                 }
             });
         } else {
-            res.render("forgotPassword1", { message: "You are not a User.Create New Account!", category: category })
+            res.render("forgotPassword1", { message: "You are not a User.Create New Account!", category: category ,userData:null})
         }
 
     } catch (error) {
@@ -389,7 +393,11 @@ const forgotPassword1 = async (req, res) => {
 const forgotPasswordPage = async (req, res) => {
     try {
         const category = await Category.find({ list: true })
-        res.render("forgotPassword", { category: category })
+        let userData=null
+        if(res.locals.user){
+            userData = await Customer.findOne({ _id: res.locals.user._id })
+        }
+        res.render("forgotPassword", { category: category,userData })
     } catch (error) {
         console.log(error);
         const statusCode = 500;
@@ -409,10 +417,10 @@ const forgotPassword = async (req, res) => {
                 res.redirect("/user/login")
 
             } else {
-                res.render("forgotpassword", { message: "Password mismatching", category: category })
+                res.render("forgotpassword", { message: "Password mismatching", category: category,userData:null })
             }
         } else {
-            res.render("forgotpassword", { message: "Wrong OTP", category: category })
+            res.render("forgotpassword", { message: "Wrong OTP", category: category,userData:null })
         }
 
 
@@ -430,7 +438,7 @@ const forgotPassword = async (req, res) => {
 const logout = async (req, res) => {
     try {
         await res.cookie('jwt', '', { maxAge: 1 })
-        res.redirect("/")
+        res.redirect("/userHome")
     } catch (error) {
         console.log(error);
         const statusCode = 500;
@@ -565,11 +573,12 @@ const verifyProfile = async (req, res) => {
         const otp = req.body.otp
         const otpString = otp.toString()
         const category = await Category.find({ list: true })
+        const userData=await Customer.findOne({_id:profileDetail.id})
         if (profileOtp === otpString) {
             const saving = await Customer.updateOne({ _id: profileDetail.id }, { $set: { name: profileDetail.name, email: profileDetail.email, mobile: profileDetail.mobile } })
             res.redirect("/userAccount")
         } else {
-            res.render("verifyProfile", { message: "Invalid OTP", category: category })
+            res.render("verifyProfile", { message: "Invalid OTP", category: category,userData })
         }
 
     } catch (error) {
@@ -678,11 +687,11 @@ const editAddressPage = async (req, res) => {
     try {
         const id = req.params.id
         const category = await Category.find({ list: true })
-        const usersData = await Customer.findOne({ _id: res.locals.user._id })
-        const userData = usersData.address.id(id)
+        const userData = await Customer.findOne({ _id: res.locals.user._id })
+        const addressData = userData.address.id(id)
 
 
-        res.render("userEditAddress", { category: category, userData: userData, usersData: usersData })
+        res.render("userEditAddress", { category: category, userData: userData, addressData: addressData })
     } catch (error) {
         console.log(error);
         const statusCode = 500;
@@ -698,10 +707,10 @@ const editAddressCheckoutPage = async (req, res) => {
         const id = req.params.id
         const category = await Category.find({ list: true })
         const usersData = await Customer.findOne({ _id: res.locals.user._id })
-        const userData = usersData.address.id(id)
+        const addressData = usersData.address.id(id)
 
 
-        res.render("editAddressCheckout", { category: category, userData: userData, usersData: usersData })
+        res.render("editAddressCheckout", { category: category, addressData: addressData, userData: usersData })
     } catch (error) {
         console.log(error);
         const statusCode = 500;
@@ -866,51 +875,18 @@ const deleteAddress = async (req, res) => {
 
 
 
-// const updateQuantity = async (req, res) => {
-//     try {
-//         console.log("hello");
-//         const itemId = req.body.itemId;
-//         const operation = req.body.operation;
 
-//         const user = await Customer.findOne({ _id: res.locals.user._id, "cart._id": itemId });
-//         if (user) {
-//             const cartItem = user.cart.find((item) => item._id.toString() === itemId);
-//             if (cartItem) {
-//                 const productId = cartItem.productId; // Assuming the productId is stored in the cartItem
-
-//                 const product = await Product.findById(productId);
-//                 if (product) {
-//                     // Update quantity and calculate new subtotal
-//                     cartItem.quantity = parseInt(cartItem.quantity);
-//                     cartItem.quantity += parseInt(operation);
-//                     cartItem.quantity = Math.max(1, cartItem.quantity);
-
-//                     // Calculate new subtotal
-//                     // const newSubtotal = cartItem.quantity * product.offerPrice;
-
-//                     await user.save();
-//                     res.status(200).json({ message: "Quantity updated successfully", newQuantity: cartItem.quantity, newSubtotal: newSubtotal });
-//                 } else {
-//                     res.status(404).json({ error: "Product not found" });
-//                 }
-//             } else {
-//                 res.status(404).json({ error: "Cart item not found" });
-//             }
-//         } else {
-//             res.status(404).json({ error: "User not found" });
-//         }
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ error: "Internal server error" });
-//     }
-// };
 
 
 
 const about = async (req, res) => {
     try {
         const category = await Category.find({ list: true })
-        const userData = await Customer.findOne({ _id: res.locals.user._id })
+        let userData=null
+        if(res.locals.user){
+            userData = await Customer.findOne({ _id: res.locals.user._id })
+        }
+       
 
         res.render("about", { category: category, userData: userData })
     } catch (error) {
@@ -926,7 +902,10 @@ const about = async (req, res) => {
 const contact = async (req, res) => {
     try {
         const category = await Category.find({ list: true })
-        const userData = await Customer.findOne({ _id: res.locals.user._id })
+        let userData=null
+        if(res.locals.user){
+            userData = await Customer.findOne({ _id: res.locals.user._id })
+        }
 
         res.render("contact", { category: category, userData: userData })
     } catch (error) {

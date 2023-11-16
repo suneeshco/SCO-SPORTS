@@ -71,7 +71,7 @@
                         <span class="text">Banner Management</span> </a>
                 </li>
                 <li class="menu-item active">
-                    <a class="menu-link" href="/admin/salesReport"> <i class="icon material-icons md-stars"></i>
+                    <a class="menu-link" href="/admin/salesFilter?startDate=&endDate=&page=1"> <i class="icon material-icons md-stars"></i>
                         <span class="text">Sales Report</span> </a>
                 </li>
                 
@@ -123,6 +123,7 @@
                                     <label for="endDate">End Date</label>
                                     <input type="date" name="endDate" id="endDate" class="form-control">
                                 </div>
+                                <input type="hidden" name="page" value="1">
                                 <button type="submit" class="btn btn-primary" id="salesFilter">Search</button>
                             </form>
                         </div>
@@ -184,7 +185,7 @@
                                         <%if(page==1){%>
                                             <a class="page-link" ><i class="fi-rs-angle-double-small-left"><</i></a>
                                         <%}else{%>
-                                        <a class="page-link" href="/admin/salesReport?page=<%=parseInt(page)-1%>"><i class="fi-rs-angle-double-small-left"><</i></a>
+                                        <a class="page-link" href="/admin/salesFilter?page=<%=parseInt(page)-1%>&startDate=<%=startDate%>&endDate=<%=endDate%>"><i class="fi-rs-angle-double-small-left"><</i></a>
                                         <%}%>
                                     </li>
                                     
@@ -196,7 +197,7 @@
                                         <%if(page==pageLimit){%>
                                             <a class="page-link" ><i class="fi-rs-angle-double-small-right">></i></a>
                                         <%}else{%>
-                                        <a class="page-link" href="/admin/salesReport?page=<%=parseInt(page)+1%>"><i class="fi-rs-angle-double-small-right">></i></a>
+                                        <a class="page-link" href="/admin/salesFilter?page=<%=parseInt(page)+1%>&startDate=<%=startDate%>&endDate=<%=endDate%>"><i class="fi-rs-angle-double-small-right">></i></a>
                                         <%}%>
                                     </li>
                                 </ul>

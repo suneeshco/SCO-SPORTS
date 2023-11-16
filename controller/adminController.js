@@ -591,14 +591,7 @@ const deleteImage = async (req, res) => {
 
 
 
-const salesReportPage=async (req,res)=>{
-    try {
-        const order = await Order.find({ status: { $ne: 'pending' } }).populate('customerId');
-        res.render("salesReport",{order,startDate:null,endDate:null})
-    } catch (error) {
-        res.status(500).send("Internal Server Error");
-    }
-}
+
 
 
 
@@ -1268,12 +1261,9 @@ const excelDownload = async (req, res) => {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Sales Report');
 
-    // Replace this with your data retrieval logic and populate the worksheet
+   
     worksheet.addRow(['Order ID', 'Product Name', 'Quantity', 'Price', 'Total']);
-    // Add data rows based on your sales report data
     
-
-    // Generate the Excel file
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     res.setHeader('Content-Disposition', 'attachment; filename=sales_report.xlsx');
     
@@ -1554,21 +1544,28 @@ yPos+=50
 
 const salesFilter = async (req, res) => {
     try {
-      
+        let limit=6
+        let page=req.query.page
+        let pageNumber=page ? parseInt(page) : 1
+        let skip=(pageNumber - 1) * limit
         const startDate = req.query.startDate;
         const endDate = req.query.endDate;
         
-
-       
-        const filteredOrders = await Order.find({
+        let orders
+       if(startDate&&endDate){
+         orders = await Order.find({
             createdOn: {
                 $gte: new Date(`${startDate}T00:00:00.000Z`), 
                 $lte: new Date(`${endDate}T00:00:00.000Z`),   
             }, status: { $ne: 'pending' }
         }).populate('customerId')
-
-        
-        res.render("salesReport",{order:filteredOrders,startDate,endDate})
+    }else{
+         orders = await Order.find({ status: { $ne: 'pending' } }).populate('customerId')
+    }
+    let order=orders.slice(skip,skip+limit)
+    let pageLimit=Math.ceil(orders.length/limit)
+  
+        res.render("salesReport",{order:order,startDate,endDate,page,pageLimit})
     } catch (error) {
         console.log(error);
         res.status(500).send('Error filtering sales');
@@ -1738,7 +1735,7 @@ module.exports = {
     categoryPage, addCategory, deleteCategory, editCategoryPage, editCategory,
 
     addProductPage, productShowPage, addProduct, editProductPage, editProduct, deleteProduct, deletedProductsPage, addFromDelete, deleteImage,
-    salesReportPage,
+    
 
     usersShowPage, usersStatusBlock, usersStatusUnblock,
 

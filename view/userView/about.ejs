@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
 
 
-<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:20:36 GMT -->
+
 
 <head>
     <meta charset="utf-8">
@@ -64,11 +64,6 @@
 
 <body>
 
-
-
-
-
-
     <header class="header-area header-style-1 header-height-2">
         <div class="header-top header-top-ptb-1 d-none d-lg-block">
             <div class="container">
@@ -76,8 +71,8 @@
                     <div class="col-xl-3 col-lg-4">
                         <div class="header-info">
                             <ul>
-                                <li><i class="fi-rs-smartphone"></i> <a href="#">+91 9876543210</a></li>
-                                <li><i class="fi-rs-marker"></i><a href="page-contact.html">Our location</a></li>
+                                <li><i class="fi-rs-smartphone"></i>+91 9876543210</li>
+                                
                             </ul>
                         </div>
                     </div>
@@ -87,7 +82,7 @@
                     <div class="col-xl-3 col-lg-4">
                         <div class="header-info header-info-right">
                             <ul>
-                                <%if(user){%>
+                                <%if(userData){%>
                                     <li><i class="fi-rs-user"></i><a href="/userAccount">Account</a></li>
                                     <li><i class="fi-rs-user"></i><a href="/logout">Logout</a></li>
                                     <%}else{%>
@@ -104,35 +99,46 @@
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href="index.html"><img src="/assets/imgs/theme/LOGO.png" alt="logo"></a>
+                        <a><img src="/assets/imgs/theme/LOGO.png" alt="logo"></a>
                     </div>
                     <div class="header-right">
-                        
-                            <form action="/search" method="get">
-                                <div class="search-container">
-                                    <input type="text" class="search-input" name="query" placeholder="Search...">
-                                    <button type="submit" class="search-button">Search</button>
-                                </div>
-                            </form>
-                        
+                        <form action="/search" method="get">
+                            <div class="search-container">
+                                <input type="text" class="search-input" name="query" placeholder="Search...">
+                                <input type="hidden" name="pages" value="1">
+                                <button type="submit" class="search-button">Search</button>
+                            </div>
+                        </form>
                         <div class="header-action-right">
                             <div class="header-action-2">
                                 <div class="header-action-icon-2">
+                                    <%if(userData){%>
                                     <a href="/wishlist">
-                                        <img class="svgInject" alt="SCO" src="/assets/imgs/theme/icons/icon-heart.svg">
-                                        <%if(user){%>
-                                        <span class="pro-count blue"><%=userData.wishlist.length%></span>
-                                        <%}%>
+                                        <img class="svgInject" alt="SCO" src="assets/imgs/theme/icons/icon-heart.svg">                         
+                                        <span class="pro-count blue" id="wishlistCount"><%=userData.wishlist.length%></span>                        
                                     </a>
+                                    <%}else{%>
+                                        <a href="/user/login">
+                                            <img class="svgInject" alt="SCO" src="assets/imgs/theme/icons/icon-heart.svg">                                                 
+                                        </a>
+                                    <%}%>
                                 </div>
-                                <div class="header-action-icon-2">
-                                    <a class="mini-cart-icon" href="/cart">
-                                        <img alt="SCO" src="/assets/imgs/theme/icons/icon-cart.svg">
-                                        <%if(user){%>
-                                        <span class="pro-count blue"><%=userData.cart.length%></span>
-                                        <%}%>
-                                    </a>
 
+
+
+
+
+                                <div class="header-action-icon-2">
+                                    <%if(userData){%>
+                                    <a class="mini-cart-icon" href="/cart">
+                                        <img alt="SCO" src="assets/imgs/theme/icons/icon-cart.svg">
+                                        <span class="pro-count blue"><%=userData.cart.length%></span> 
+                                    </a>
+                                    <%}else{%>
+                                        <a class="mini-cart-icon" href="/user/login">
+                                            <img alt="SCO" src="assets/imgs/theme/icons/icon-cart.svg"> 
+                                        </a>
+                                    <%}%>
                                 </div>
                             </div>
                         </div>
@@ -144,21 +150,23 @@
             <div class="container">
                 <div class="header-wrap header-space-between position-relative">
                     <div class="logo logo-width-1 d-block d-lg-none">
-                        <a href="index.html"><img src="/assets/imgs/theme/LOGO.png" alt="logo"></a>
+                        <a><img src="assets/imgs/theme/LOGO.png"  alt="logo"></a>
                     </div>
                     <div class="header-nav d-none d-lg-flex">
                         <div class="main-categori-wrap d-none d-lg-block">
-                            <a class="categori-button-active" href="#">
-                                <span class="fi-rs-apps"></span> Browse Categories
-                            </a>
-                            
+                           
+                            <div class="categori-dropdown-wrap categori-dropdown-active-large">
+                                <ul>
+                                    
+                                </ul>
+                            </div>
                         </div>
-                        <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
+                        <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block" style="padding-left: 180px;">
                             <nav>
                                 <ul>
                                     <li><a class="active" href="/userHome">Home </a></li>
                                     <li><a href="/about">About</a></li>
-                                    <li><a href="/shop">Shop </a></li>
+                                    <li><a href="/search?pages=1">Shop </a></li>
                                     <li><a href="/contact">Contact</a></li>
                                 </ul>
                             </nav>
@@ -167,20 +175,28 @@
                     <div class="header-action-right d-block d-lg-none">
                         <div class="header-action-2">
                             <div class="header-action-icon-2">
-                                <a href="/wishlist">
-                                    <img alt="Evara" src="/assets/imgs/theme/icons/icon-heart.svg">
-                                    <%if(user){%>
-                                    <span class="pro-count white"><%=userData.wishlist.length%></span>
+                                <%if(userData){%>
+                                    <a href="/wishlist">
+                                        <img class="svgInject" alt="SCO" src="assets/imgs/theme/icons/icon-heart.svg">                         
+                                        <span class="pro-count blue" id="wishlistCount"><%=userData.wishlist.length%></span>                        
+                                    </a>
+                                    <%}else{%>
+                                        <a href="/user/login">
+                                            <img class="svgInject" alt="SCO" src="assets/imgs/theme/icons/icon-heart.svg">                                                 
+                                        </a>
                                     <%}%>
-                                </a>
                             </div>
                             <div class="header-action-icon-2">
-                                <a class="mini-cart-icon" href="/cart">
-                                    <img alt="SCO" src="/assets/imgs/theme/icons/icon-cart.svg">
-                                    <%if(user){%>
-                                    <span class="pro-count white"><%=userData.cart.length%></span>
+                                <%if(userData){%>
+                                    <a class="mini-cart-icon" href="/cart">
+                                        <img alt="SCO" src="assets/imgs/theme/icons/icon-cart.svg">
+                                        <span class="pro-count blue"><%=userData.cart.length%></span> 
+                                    </a>
+                                    <%}else{%>
+                                        <a class="mini-cart-icon" href="/user/login">
+                                            <img alt="SCO" src="assets/imgs/theme/icons/icon-cart.svg"> 
+                                        </a>
                                     <%}%>
-                                </a>
                                 
                             </div>
                             <div class="header-action-icon-2 d-block d-lg-none">
@@ -198,16 +214,6 @@
     </header>
 
 
-
-
-
-
-
-
-
-
-
-
 <!-- Mobile View Side Toggle -->
 
 
@@ -215,7 +221,7 @@
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
                 <div class="mobile-header-logo">
-                    <a ><img src="/assets/imgs/theme/LOGO.png" alt="logo"></a>
+                    <a ><img src="assets/imgs/theme/LOGO.png" alt="logo"></a>
                 </div>
                 <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                     <button class="close-style search-close">
@@ -229,24 +235,18 @@
                     <form action="/search" method="get">
                         <div class="search-container">
                             <input type="text" class="search-input" name="query" placeholder="Search...">
+                            <input type="hidden" name="pages" value="1">
                             <button type="submit" class="search-button">Search</button>
                         </div>
                     </form>
                 </div>
                 <div class="mobile-menu-wrap mobile-header-border">
                     <div class="main-categori-wrap mobile-header-border">
-                        <a class="categori-button-active-2" href="#">
-                            <span class="fi-rs-apps"></span> Browse Categories
+                        <a class="categori-button-active-2" >
+                            
                         </a>
                         <div class="categori-dropdown-wrap categori-dropdown-active-small">
-                            <ul>
-                                <%for(let i=0;i<category.length;i++){%>
-                                    <li><a href="/products/category?category=<%=category[i].categoryName%>"><i
-                                                class="evara-font-desktop"></i>
-                                            <%=category[i].categoryName%>
-                                        </a></li>
-                                    <%}%>
-                                </ul>
+                            
                         </div>
                     </div>
                     <!-- mobile menu start -->
@@ -259,7 +259,7 @@
                                 href="/about">About</a>
                         </li>
                             <li class="menu-item-has-children"><span class="menu-expand"></span><a
-                                    href="/shop">shop</a>
+                                    href="/search?pages=1">shop</a>
                             <li class="menu-item-has-children"><span class="menu-expand"></span><a href="/contact">Contact</a>
 
                             </li>
@@ -270,36 +270,40 @@
                 <div class="mobile-header-info-wrap mobile-header-border">
                     
                     <div class="single-mobile-header-info">
-                        <a href="/user/login">Log In</a>
+                        <%if(userData){%>
+                            <a href="/userAccount">Account</a>
+                            <%}else{%>
+                            <a href="/user/login">Log In</a>
+                        <%}%>
                     </div>
                     <div class="single-mobile-header-info">
-                        <a href="/user/signup">Sign Up</a>
+                        <%if(userData){%>
+                            <a href="/logout">Logout</a>
+                            <%}else{%>
+                            <a href="/user/signup">Sign Up</a>
+                        <%}%>
+                        
                     </div>
                     <div class="single-mobile-header-info">
-                        <a href="#">(+91) 9876543210 </a>
+                        <a>(+91) 9876543210 </a>
                     </div>
                 </div>
                 <div class="mobile-social-icon">
                     <h5 class="mb-15 text-grey-4">Follow Us</h5>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
-                    <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                    <a ><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                    <a ><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                    <a ><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                    <a ><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                    <a ><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
     <main class="main single-page">
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    <a href="index.html" rel="nofollow">Home</a>
+                    <a href="/userHome" rel="nofollow">Home</a>
                     <span></span> Pages
                     <span></span> About us
                 </div>
@@ -339,96 +343,54 @@
     </main>
     
     <footer class="main">
-        
-        <section class="section-padding footer-mid">
+        <section class="newsletter p-30 text-white wow fadeIn animated">
             <div class="container pt-15 pb-20">
-                <div class="divider center_icon mt-50 mb-50"><i class="fi-rs-fingerprint"></i></div>
                 <div class="row">
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-lg-4 col-md-4 ">
                         <div class="widget-about font-md mb-md-5 mb-lg-0">
                             <div class="logo logo-width-1 wow fadeIn animated">
-                                <a href="index.html"><img src="assets/imgs/theme/LOGO.png" alt="logo"></a>
+                                <a><img src="/assets/imgs/theme/LOGO.png" alt="logo"></a>
                             </div>
                             <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
                             <p class="wow fadeIn animated">
-                                <strong>Address: </strong>562 Wellington Road, Street 32, San Francisco
+                                <strong>Address: </strong>SCO Sports, Maradu, Ernakulam, Kerala
                             </p>
                             <p class="wow fadeIn animated">
-                                <strong>Phone: </strong>+01 2222 365 /(+91) 01 2345 6789
+                                <strong>Phone: </strong>+91 9876543210
                             </p>
-                            <p class="wow fadeIn animated">
-                                <strong>Hours: </strong>10:00 - 18:00, Mon - Sat
-                            </p>
-                            <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
-                            <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
-                                <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
-                                <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
-                                <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
-                                <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
-                                <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
-                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-3">
-                        <h5 class="widget-title wow fadeIn animated">About</h5>
-                        <ul class="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Delivery Information</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms &amp; Conditions</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Support Center</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-2  col-md-3">
+                    <div class="col-lg-4  col-md-4 " style="display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;">
                         <h5 class="widget-title wow fadeIn animated">My Account</h5>
                         <ul class="footer-list wow fadeIn animated">
-                            <li><a href="#">Sign In</a></li>
-                            <li><a href="#">View Cart</a></li>
-                            <li><a href="#">My Wishlist</a></li>
-                            <li><a href="#">Track My Order</a></li>
-                            <li><a href="#">Help</a></li>
-                            <li><a href="#">Order</a></li>
+                            <%if(userData){%>
+                                <li><a href="/userAccount">Account</a></li>
+                            <%}else{%>
+                                <li><a href="/user/login">Sign In</a></li>
+                            <%}%>
+                            <li><a href="/about">About Us</a></li>
+                            <li><a href="/contact">Contact Us</a></li>
+                            <li><a href="/contact">Help</a></li>
                         </ul>
                     </div>
-                    <div class="col-lg-4">
-                        <h5 class="widget-title wow fadeIn animated">Install App</h5>
-                        <div class="row">
-                            <div class="col-md-8 col-lg-12">
-                                <p class="wow fadeIn animated">From App Store or Google Play</p>
-                                <div class="download-app wow fadeIn animated">
-                                    <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img class="active"
-                                            src="assets/imgs/theme/app-store.jpg" alt=""></a>
-                                    <a href="#" class="hover-up"><img src="assets/imgs/theme/google-play.jpg"
-                                            alt=""></a>
-                                </div>
+                    <div class="col-lg-4  col-md-4" style="display: flex;flex-direction: column;align-items: right;text-align: center;">
+                        
+                            <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
+                            <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
+                                <a ><img src="/assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                                <a ><img src="/assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                                <a ><img src="/assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                                <a ><img src="/assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
                             </div>
-                            <div class="col-md-4 col-lg-12 mt-md-3 mt-lg-0">
-                                <p class="mb-20 wow fadeIn animated">Secured Payment Gateways</p>
-                                <img class="wow fadeIn animated" src="assets/imgs/theme/payment-method.png" alt="">
-                            </div>
-                        </div>
+                        
                     </div>
+                    
                 </div>
             </div>
         </section>
-        <div class="container pb-20 wow fadeIn animated">
-            <div class="row">
-                <div class="col-12 mb-20">
-                    <div class="footer-bottom"></div>
-                </div>
-                <div class="col-lg-6">
-                    <p class="float-md-left font-sm text-muted mb-0">&copy; 2021, <strong
-                            class="text-brand">Evara</strong> - HTML Ecommerce Template </p>
-                </div>
-                <div class="col-lg-6">
-                    <p class="text-lg-end text-start font-sm text-muted mb-0">
-                        Designed by <a href="http://alithemes.com/" target="_blank">Alithemes.com</a>. All rights
-                        reserved
-                    </p>
-                </div>
-            </div>
-        </div>
     </footer>
     <!-- Preloader Start -->
     <div id="preloader-active">

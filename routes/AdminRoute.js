@@ -115,7 +115,7 @@ adminRoute.get('/products/deletedProducts',validate.requireAuth,adminController.
 adminRoute.get('/products/addFromDelete',validate.requireAuth,adminController.addFromDelete)
 // adminRoute.get("/admin/products/edit/deleteImage",adminController.deleteImage)
 adminRoute.post("/products/edit/deleteImg/:imgId",adminController.deleteImage)
-adminRoute.get("/salesReport",adminController.salesReportPage)
+
 
 
 

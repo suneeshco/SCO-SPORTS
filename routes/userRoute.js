@@ -42,8 +42,8 @@ userRoute.get('*',validate.checkUser)
 
 //products related
 
-userRoute.get("/userHome",validate.requireAuth,productController.userHome)
-userRoute.get("/",validate.requireAuth1,productController.loadHome)
+userRoute.get("/userHome",productController.userHome)
+userRoute.get("/",productController.userHome)
 userRoute.get("/products/productsDetail",productController.productDetailPage)
 userRoute.get("/products/category",productController.productByCategory)
 userRoute.get("/search",productController.loadSearchItems)
@@ -102,7 +102,7 @@ userRoute.post("/forgotPassword1",userController.forgotPassword1)
 userRoute.get("/forgotPassword",validate.requireAuth1,userController.forgotPasswordPage)
 userRoute.post("/forgotPassword",userController.forgotPassword)
 
-userRoute.get("/logout",validate.requireAuth,userController.logout)
+userRoute.get("/logout",userController.logout)
 userRoute.get("/shop",productController.loadSearchItems)
 
 userRoute.get("/userAccount",validate.requireAuth,userController.accountDetailsPage)
