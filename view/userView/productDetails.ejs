@@ -409,8 +409,10 @@
                                                             <button type="submit" class="button button-add-to-cart">Add to
                                                             cart</button>
                                                             <%}else{%>
-                                                                <a href="/user/login" class="butn" style="background-color: green; color: white;" >Add To Cart
-                                                                    </a> 
+                                                                <!-- <a href="/user/login" class="butn" style="background-color: green; color: white;" >Add To Cart
+                                                                    </a>  -->
+                                                                    <button  class="button" type="button" id="addsCart">Add to
+                                                                        cart</button>
                                                             <%}%>
                                                             
                                                         
@@ -587,7 +589,13 @@
     <script src="/assets/js/plugins/jquery.elevatezoom.js"></script>
     
 
-<script></script>
+<script>
+    document.getElementById('addsCart').addEventListener("click",(events)=>{
+        events.preventDefault()
+        window.location.href="/user/login"
+    })
+</script>
+
 
     
     <!-- Template  JS -->

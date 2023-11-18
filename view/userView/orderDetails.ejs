@@ -387,7 +387,9 @@
                         </div>
                         <div class="col-md-2">
                             <% if (order.deliveryStatus) { %>
-                                <a href="/download/invoice/<%= order._id %>" class="btn">Download Invoice</a>
+                                <!-- <a href="/downloads/invoice/<%= order._id %>" class="btn">Download Invoice</a> -->
+                                <a href="/downloads/invoice/<%= order._id %>" class="btn" target="_blank">Download Invoice</a>
+
                               <% } %>
                         </div>
                         <div class="col-md-3">
@@ -405,7 +407,7 @@
                                         <% const currentDate=new Date(); %>
                                         <% const orderCreationDate=new Date( order.deliveredOn ); %>
 
-                                        <% const expiryInSeconds=1000; %>
+                                        <% const expiryInSeconds=86400; %>
                                         <% const currentTimeInSeconds=Math.floor(currentDate.getTime()/1000); %>
                                         <% const orderCreationTimeInSeconds=Math.floor(orderCreationDate.getTime()/ 1000); %>
                                         <% const timeDifferenceInSeconds=expiryInSeconds-(currentTimeInSeconds - orderCreationTimeInSeconds); %>

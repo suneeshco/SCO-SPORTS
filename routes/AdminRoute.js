@@ -145,8 +145,8 @@ adminRoute.get("/brands/delete",validate.requireAuth,adminController.deleteBrand
 adminRoute.get("/orders",validate.requireAuth,adminController.orderDetailsPage)
 adminRoute.get("/editOrders/:orderId",validate.requireAuth,adminController.editOrderPage)
 adminRoute.post("/updateOrder",adminController.updateOrder)
-adminRoute.get("/approveReturn/:orderId",adminController.approveReturn)
-adminRoute.get("/rejectReturn/:orderId",adminController.rejectReturn)
+adminRoute.get("/approveReturn/:orderId/:userId",validate.requireAuth,adminController.approveReturn)
+adminRoute.get("/rejectReturn/:orderId",validate.requireAuth,adminController.rejectReturn)
 
 
 
@@ -157,17 +157,17 @@ adminRoute.get("/coupons",validate.requireAuth,adminController.couponManagementP
 adminRoute.get("/couponManagement/edit/:couponId",validate.requireAuth,adminController.editCouponPage)
 adminRoute.post("/addCoupon",adminController.addCoupon)
 adminRoute.post("/updateCoupon",adminController.editCoupon)
-adminRoute.get("/couponManagement/delete",adminController.deleteCoupon)
+adminRoute.get("/couponManagement/delete",validate.requireAuth,adminController.deleteCoupon)
 
 
 adminRoute.post("/fetchData/:time",adminController.fetchDataGraph)
 adminRoute.post("/downloadExcel",adminController.excelDownload)
-adminRoute.get("/downloadPdfReport",adminController.reportPdf)
-adminRoute.get("/salesFilter",adminController.salesFilter)
-adminRoute.get("/banner",adminController.bannerPage)
+adminRoute.get("/downloadPdfReport",validate.requireAuth,adminController.reportPdf)
+adminRoute.get("/salesFilter",validate.requireAuth,adminController.salesFilter)
+adminRoute.get("/banner",validate.requireAuth,adminController.bannerPage)
 adminRoute.post("/banner",upload2.single('image'),adminController.addBanner)
 adminRoute.post("/updateBannerStatus",adminController.updateBannerStatus)
-adminRoute.get("/editBanner",adminController.editBannerPage)
+adminRoute.get("/editBanner",validate.requireAuth,adminController.editBannerPage)
 adminRoute.post("/editBanner",upload2.single('image'),adminController.editBanner)
 
 

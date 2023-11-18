@@ -941,9 +941,7 @@ const updateOrder=async (req,res)=>{
                     }
                 }
             }
-
-           
-            
+ 
         }
         res.redirect("/admin/orders?page=1")
     } catch (error) {
@@ -954,7 +952,7 @@ const updateOrder=async (req,res)=>{
 
 const approveReturn=async (req,res)=>{
     try {
-        const customer=await Customer.findOne({_id:res.locals.user._id})
+        const customer=await Customer.findOne({_id:req.params.userId})
         
         const orderId=req.params.orderId
         const order=await Order.findOne({_id:orderId})
@@ -985,6 +983,7 @@ const approveReturn=async (req,res)=>{
             res.redirect("/admin/orders?page=1")
         }
     } catch (error) {
+        console.log(error,"222222");
         res.status(500).send("Internal Server Error");
     }
 }
@@ -1561,9 +1560,14 @@ const salesFilter = async (req, res) => {
         }).populate('customerId')
     }else{
          orders = await Order.find({ status: { $ne: 'pending' } }).populate('customerId')
+         
     }
     let order=orders.slice(skip,skip+limit)
+    
+    
     let pageLimit=Math.ceil(orders.length/limit)
+    
+    
   
         res.render("salesReport",{order:order,startDate,endDate,page,pageLimit})
     } catch (error) {

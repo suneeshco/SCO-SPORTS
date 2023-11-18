@@ -68,7 +68,7 @@ userRoute.post("/forgotPassword1",userController.forgotPassword1)
 userRoute.get("/forgotPassword",validate.requireAuth1,userController.forgotPasswordPage)
 userRoute.post("/forgotPassword",userController.forgotPassword)
 
-userRoute.get("/logout",userController.logout)
+userRoute.get("/logout",validate.requireAuth,userController.logout)
 
 userRoute.get("/userAccount",validate.isBlocked,validate.requireAuth,userController.accountDetailsPage)
 userRoute.get("/user/profile/edit",validate.isBlocked,validate.requireAuth,userController.userProfileEditPage)
@@ -91,8 +91,8 @@ userRoute.get("/contact",userController.contact)
 userRoute.get("/changePassword",validate.isBlocked,validate.requireAuth,userController.changePasswordPage)
 userRoute.post("/changePassword",userController.changePassword)
 
-userRoute.get("/walletDetails",validate.isBlocked,userController.walletDetailsPage)
-userRoute.get("/couponDetails",validate.isBlocked,userController.couponDetailsPage)
+userRoute.get("/walletDetails",validate.isBlocked,validate.requireAuth,userController.walletDetailsPage)
+userRoute.get("/couponDetails",validate.isBlocked,validate.requireAuth,userController.couponDetailsPage)
 
 
 //cart related
@@ -101,11 +101,11 @@ userRoute.get("/cart",validate.isBlocked,validate.requireAuth,cartController.car
 userRoute.post("/addToCart",cartController.addToCart)
 userRoute.post("/updateCartQuantity",cartController.updateQuantity)
 userRoute.get("/deleteCartItem/:id",validate.isBlocked,validate.requireAuth,cartController.deleteCartItem)
-userRoute.get("/clearCart/:id",validate.isBlocked,cartController.clearCart)
+userRoute.get("/clearCart/:id",validate.isBlocked,validate.requireAuth,cartController.clearCart)
 
 userRoute.get("/wishlist",validate.isBlocked,validate.requireAuth,cartController.wishlistPage)
 userRoute.post("/addToWishlist",cartController.addToWishlist)
-userRoute.get("/wishlistDelete/:id",validate.isBlocked,cartController.deleteWishlistItem)
+userRoute.get("/wishlistDelete/:id",validate.isBlocked,validate.requireAuth,cartController.deleteWishlistItem)
 userRoute.post("/addToCartFromWishlist",cartController.addToCartFromWishlist)
 
 
@@ -120,10 +120,10 @@ userRoute.post("/verifyPayment/:id",orderController.onlinePayment)
 userRoute.post("/applyCoupon",orderController.applyCoupon)
 userRoute.get("/userOrders",validate.isBlocked,validate.requireAuth,orderController.orderDetailsPage)
 userRoute.get("/orderDetails/:orderId",validate.isBlocked,validate.requireAuth,orderController.orderDetails)
-userRoute.get("/cancelOrder/:orderId",validate.isBlocked,orderController.cancelOrder)
+userRoute.get("/cancelOrder/:orderId",validate.isBlocked,validate.requireAuth,orderController.cancelOrder)
 userRoute.post("/returnOrderConfirmation/:orderId",orderController.returnOrderApply)
-userRoute.get("/cancelReturn/:orderId",validate.isBlocked,orderController.cancelReturn)
-userRoute.get("/download/invoice/:orderId",validate.isBlocked,orderController.downloadInvoice)
+userRoute.get("/cancelReturn/:orderId",validate.isBlocked,validate.requireAuth,orderController.cancelReturn)
+userRoute.get("/downloads/invoice/:orderId",validate.isBlocked,validate.requireAuth,orderController.downloadInvoice)
 
 
 
