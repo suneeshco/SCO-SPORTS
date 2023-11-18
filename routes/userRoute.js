@@ -47,44 +47,10 @@ userRoute.get("/",productController.userHome)
 userRoute.get("/products/productsDetail",productController.productDetailPage)
 userRoute.get("/products/category",productController.productByCategory)
 userRoute.get("/search",productController.loadSearchItems)
+userRoute.get("/shop",productController.loadSearchItems)
 
 
 //user related
-
-
-
-
-//cart related
-
-userRoute.get("/cart",validate.requireAuth,cartController.cartShowPage)
-userRoute.post("/addToCart",cartController.addToCart)
-userRoute.post("/updateCartQuantity",cartController.updateQuantity)
-userRoute.get("/deleteCartItem/:id",validate.requireAuth,cartController.deleteCartItem)
-userRoute.get("/clearCart/:id",cartController.clearCart)
-
-userRoute.get("/wishlist",validate.requireAuth,cartController.wishlistPage)
-userRoute.post("/addToWishlist",cartController.addToWishlist)
-userRoute.get("/wishlistDelete/:id",cartController.deleteWishlistItem)
-userRoute.post("/addToCartFromWishlist",cartController.addToCartFromWishlist)
-
-
-
-
-//order related
-
-userRoute.get("/checkout",validate.requireAuth,orderController.checkoutPage)
-userRoute.get("/orderSuccessful/:id",validate.requireAuth,orderController.orderSuccessfulPage)
-userRoute.post("/placeOrder",orderController.placeOrder)
-userRoute.post("/verifyPayment/:id",orderController.onlinePayment)
-userRoute.post("/applyCoupon",orderController.applyCoupon)
-userRoute.get("/userOrders",validate.requireAuth,orderController.orderDetailsPage)
-userRoute.get("/orderDetails/:orderId",validate.requireAuth,orderController.orderDetails)
-userRoute.get("/cancelOrder/:orderId",orderController.cancelOrder)
-userRoute.post("/returnOrderConfirmation/:orderId",orderController.returnOrderApply)
-userRoute.get("/cancelReturn/:orderId",orderController.cancelReturn)
-userRoute.get("/download/invoice/:orderId",orderController.downloadInvoice)
-
-
 
 userRoute.get("/user/login",validate.requireAuth1,userController.loadUserLogin)
 userRoute.post("/user/login",userController.verifyUser)
@@ -103,31 +69,68 @@ userRoute.get("/forgotPassword",validate.requireAuth1,userController.forgotPassw
 userRoute.post("/forgotPassword",userController.forgotPassword)
 
 userRoute.get("/logout",userController.logout)
-userRoute.get("/shop",productController.loadSearchItems)
 
-userRoute.get("/userAccount",validate.requireAuth,userController.accountDetailsPage)
-userRoute.get("/user/profile/edit",validate.requireAuth,userController.userProfileEditPage)
+userRoute.get("/userAccount",validate.isBlocked,validate.requireAuth,userController.accountDetailsPage)
+userRoute.get("/user/profile/edit",validate.isBlocked,validate.requireAuth,userController.userProfileEditPage)
 userRoute.post("/user/profile/edit",userController.userProfileEdit)
-userRoute.get("/profileOtp",userController.verifyProfilePage)
+userRoute.get("/profileOtp",validate.isBlocked,userController.verifyProfilePage)
 userRoute.post("/profileOtp",userController.verifyProfile)
-userRoute.get("/userAddress",validate.requireAuth,userController.userAddressPage)
-userRoute.get("/addAddress",validate.requireAuth,userController.addAddressPage)
+userRoute.get("/userAddress",validate.isBlocked,validate.requireAuth,userController.userAddressPage)
+userRoute.get("/addAddress",validate.isBlocked,validate.requireAuth,userController.addAddressPage)
 userRoute.post("/addAddress",userController.addAddress)
 userRoute.post("/addAddressCheckout",userController.addAddressCheckout)
-userRoute.get("/editAddress/:id",validate.requireAuth,userController.editAddressPage)
+userRoute.get("/editAddress/:id",validate.isBlocked,validate.requireAuth,userController.editAddressPage)
 userRoute.post("/editAddress/:id",userController.editAddress)
-userRoute.get("/editAddressCheckout/:id",validate.requireAuth,userController.editAddressCheckoutPage)
+userRoute.get("/editAddressCheckout/:id",validate.isBlocked,validate.requireAuth,userController.editAddressCheckoutPage)
 userRoute.post("/editAddressCheckout/:id",userController.editAddressCheckout)
-userRoute.get("/deleteAddress/:id",validate.requireAuth,userController.deleteAddress)
+userRoute.get("/deleteAddress/:id",validate.isBlocked,validate.requireAuth,userController.deleteAddress)
 
 userRoute.get("/about",userController.about)
 userRoute.get("/contact",userController.contact)
 
-userRoute.get("/changePassword",validate.requireAuth,userController.changePasswordPage)
+userRoute.get("/changePassword",validate.isBlocked,validate.requireAuth,userController.changePasswordPage)
 userRoute.post("/changePassword",userController.changePassword)
 
-userRoute.get("/walletDetails",userController.walletDetailsPage)
-userRoute.get("/couponDetails",userController.couponDetailsPage)
+userRoute.get("/walletDetails",validate.isBlocked,userController.walletDetailsPage)
+userRoute.get("/couponDetails",validate.isBlocked,userController.couponDetailsPage)
+
+
+//cart related
+
+userRoute.get("/cart",validate.isBlocked,validate.requireAuth,cartController.cartShowPage)
+userRoute.post("/addToCart",cartController.addToCart)
+userRoute.post("/updateCartQuantity",cartController.updateQuantity)
+userRoute.get("/deleteCartItem/:id",validate.isBlocked,validate.requireAuth,cartController.deleteCartItem)
+userRoute.get("/clearCart/:id",validate.isBlocked,cartController.clearCart)
+
+userRoute.get("/wishlist",validate.isBlocked,validate.requireAuth,cartController.wishlistPage)
+userRoute.post("/addToWishlist",cartController.addToWishlist)
+userRoute.get("/wishlistDelete/:id",validate.isBlocked,cartController.deleteWishlistItem)
+userRoute.post("/addToCartFromWishlist",cartController.addToCartFromWishlist)
+
+
+
+
+//order related
+
+userRoute.get("/checkout",validate.isBlocked,validate.requireAuth,orderController.checkoutPage)
+userRoute.get("/orderSuccessful/:id",validate.isBlocked,validate.requireAuth,orderController.orderSuccessfulPage)
+userRoute.post("/placeOrder",orderController.placeOrder)
+userRoute.post("/verifyPayment/:id",orderController.onlinePayment)
+userRoute.post("/applyCoupon",orderController.applyCoupon)
+userRoute.get("/userOrders",validate.isBlocked,validate.requireAuth,orderController.orderDetailsPage)
+userRoute.get("/orderDetails/:orderId",validate.isBlocked,validate.requireAuth,orderController.orderDetails)
+userRoute.get("/cancelOrder/:orderId",validate.isBlocked,orderController.cancelOrder)
+userRoute.post("/returnOrderConfirmation/:orderId",orderController.returnOrderApply)
+userRoute.get("/cancelReturn/:orderId",validate.isBlocked,orderController.cancelReturn)
+userRoute.get("/download/invoice/:orderId",validate.isBlocked,orderController.downloadInvoice)
+
+
+
+
+
+
+
 // userRoute.get("/referrals",userController.referralPage)
 // userRoute.get("*",async(req,res) => {res.render("errorPage",{statusCode:"404",errorMessage:"Page Not Found"})})
 

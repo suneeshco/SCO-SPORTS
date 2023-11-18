@@ -182,8 +182,8 @@ const  placeOrder = async (req, res) => {
             })
             const data = await order.save()
 
-            function generateRazorpay(id,total){
-                console.log(totalAmount,"55555555")
+            function generateRazorpay(id,totalAmount){
+                
                 return new Promise ((resolve,reject)=>{
                     var options = {
                         amount: totalAmount*100,  // amount in the smallest currency unit
@@ -230,7 +230,7 @@ const  placeOrder = async (req, res) => {
         }
 
     } catch (error) {
-        console.log(error)
+        console.log(error.message)
         const statusCode = 500;
         const errorMessage = "Internal Server Error";
         res.status(statusCode).render('errorPage', { statusCode, errorMessage });

@@ -334,6 +334,10 @@
                                             <!-- <button type="submit" class="btn btn-outline-primary btn-sm btn-fill-out hover-up" name="resendOTP">Resend OTP</button> -->
                                         
                                             <!-- Display Message -->
+                                            <div class="resend_otp form-group">
+                                                <button type="button" class="btn btn-outline-primary btn-sm btn-fill-out hover-up" id="resendOTP" disabled>Resend OTP</button>
+                                                <span id="countdown"></span>
+                                            </div>
 
                                         
                                         </form>
@@ -386,30 +390,60 @@
     <!-- Template  JS -->
     <script src="../assets/js/main.js"></script>
     <script>
-         document.getElementById("sendOtp").addEventListener("click", async function (event) {
-            event.preventDefault(); // Prevent default form submission
-    
-            const email = document.getElementById("email").value;
-    
-            // Send OTP verification request to the server using Ajax
-            try {
-                const response = await fetch("/send-otp", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ email: email }),
-                });
-    
-                // Handle the response here if needed
-    
-            } catch (error) {
-                console.error("Error:", error);
-                // Handle errors, e.g., display an error message.
+        document.addEventListener("DOMContentLoaded", () => {
+    let timer;
+    let seconds = 60; // Set the countdown time in seconds
+
+    const startTimer = () => {
+        timer = setInterval(() => {
+            seconds--;
+            document.getElementById("countdown").innerText = `Resend OTP in ${seconds}s`;
+
+            if (seconds === 0) {
+                clearInterval(timer);
+                document.getElementById("resendOTP").removeAttribute("disabled");
+                document.getElementById("countdown").innerText = "";
             }
-    
-            return false; // Prevent form submission
-        });
+        }, 1000);
+    };
+
+    document.getElementById("sendOtp").addEventListener("click", async function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        const email = document.getElementById("email").value;
+
+        // Send OTP verification request to the server using Ajax
+        try {
+            const response = await fetch("/send-otp", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email: email }),
+            });
+
+            // Handle the response here if needed
+
+            // Start the timer after sending OTP
+            seconds = 60; // Reset the timer
+            document.getElementById("resendOTP").setAttribute("disabled", true);
+            startTimer(); // Start the countdown timer
+        } catch (error) {
+            console.error("Error:", error);
+            // Handle errors, e.g., display an error message.
+        }
+
+        return false; // Prevent form submission
+    });
+
+    // Resend OTP button click event
+    document.getElementById("resendOTP").addEventListener("click", function () {
+        // Disable the button and start the timer
+        this.setAttribute("disabled", true);
+        startTimer();
+    });
+});
+
     </script>
 </body>
 

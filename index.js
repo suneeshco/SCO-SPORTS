@@ -1,5 +1,5 @@
 const mongoose=require("mongoose")
-mongoose.connect("mongodb://127.0.0.1:27017/shopping")
+mongoose.connect("mongodb+srv://suneeshcotkm:dcoE7k8JAPEgLfdG@scosportsdb.90xhjll.mongodb.net/shopping?retryWrites=true&w=majority")
 
 const userRoute=require("./routes/userRoute")
 const adminRoute=require("./routes/AdminRoute")
