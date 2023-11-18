@@ -952,9 +952,9 @@ const updateOrder=async (req,res)=>{
 
 const approveReturn=async (req,res)=>{
     try {
-        const customer=await Customer.findOne({_id:req.params.userId})
+        const customer=await Customer.findOne({_id:req.query.userId})
         
-        const orderId=req.params.orderId
+        const orderId=req.query.orderId
         const order=await Order.findOne({_id:orderId})
         const orderDetail=await Order.findOne({_id:orderId})
         if(order.returnReason=="Damaged or Defective Product"){

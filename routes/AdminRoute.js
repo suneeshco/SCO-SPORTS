@@ -145,7 +145,7 @@ adminRoute.get("/brands/delete",validate.requireAuth,adminController.deleteBrand
 adminRoute.get("/orders",validate.requireAuth,adminController.orderDetailsPage)
 adminRoute.get("/editOrders/:orderId",validate.requireAuth,adminController.editOrderPage)
 adminRoute.post("/updateOrder",adminController.updateOrder)
-adminRoute.get("/approveReturn/:orderId/:userId",validate.requireAuth,adminController.approveReturn)
+adminRoute.get("/approveReturn",validate.requireAuth,adminController.approveReturn)
 adminRoute.get("/rejectReturn/:orderId",validate.requireAuth,adminController.rejectReturn)
 
 

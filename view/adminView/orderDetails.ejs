@@ -122,7 +122,7 @@
                             <p class="card-text">Order ID: <%= order.orderId %></p>
                             <p class="card-text">Reason: <%= order.returnReason %></p>
                             <div class="btn-group" role="group" aria-label="Return Actions">
-                                <a href="/admin/approveReturn/<%=order._id%>/<%=order.customerId%>" class="btn btn-success">Approve</a>
+                                <a href="/admin/approveReturn?orderId=<%=order._id%>&userId=<%=order.customerId%>" class="btn btn-success">Approve</a>
                                 <a href="/admin/rejectReturn/<%=order._id%>" class="btn btn-danger">Reject</a>
                             </div>
                         </div>
