@@ -52,7 +52,9 @@ const loadAdminLogin = async (req, res) => {
     try {
         res.render("adminLoginPage")
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -90,7 +92,9 @@ const loadAdminHome = async (req, res) => {
         const category=await Category.find({list:true})
         res.render("adminDashboard",{orders:orders,products,category})
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -99,7 +103,9 @@ const adminLogout = async (req, res) => {
         await  res.cookie('jwtAdmin','',{maxAge:1})
         res.redirect("/admin")
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -108,7 +114,10 @@ const forgetPage1 = async (req, res) => {
     try {
         res.render("adminForgot1")
     } catch (error) {
-        res.status(500).send("Internal Server Error");    }
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });   
+     }
 }
 
 
@@ -165,7 +174,9 @@ const forgetPage = async (req, res) => {
     try {
         res.render("adminForget")
     } catch (error) {
-        res.status(500).send("Internal Server Error");    }
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });    }
 }
 
 
@@ -189,7 +200,9 @@ const forget = async (req, res) => {
 
 
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
 
     }
 }
@@ -220,7 +233,9 @@ const categoryPage = async (req, res) => {
         let pageLimit=Math.ceil(categoryLists.length/limit)
         res.render("category", { categoryList: categoryList,page,pageLimit })
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -250,7 +265,9 @@ const addCategory = async (req, res) => {
         }
         
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -262,7 +279,9 @@ const deleteCategory = async (req, res) => {
         await Category.deleteOne({ _id: id })
         res.redirect("/admin/category?page=1")
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -274,7 +293,9 @@ const editCategoryPage = async (req, res) => {
         const data = await Category.findOne({ _id: id })
         res.render("editCategory", { categoryData: data })
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -318,7 +339,9 @@ const editCategory = async (req, res) => {
 
 
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -346,7 +369,9 @@ const addProductPage = async (req, res) => {
 
         res.render("addProduct", { brand: brand, category: category })
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -364,7 +389,9 @@ const productShowPage = async (req, res) => {
         let pageLimit=Math.ceil(products.length/limit)
         res.render("productShow", { product: product,category:category,pageLimit,page })
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -429,14 +456,18 @@ const addProduct = async (req, res) => {
         if (result) {
             res.redirect("/admin/products")
         } else {
-            res.status(500).send("Internal Server Error");
+            const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
 
         }
 
 
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -449,7 +480,9 @@ const editProductPage = async (req, res) => {
         const category = await Category.find({ list: true })
         res.render("editProduct", { brand: brand, category: category, data: data })
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -514,7 +547,9 @@ const editProduct = async (req, res) => {
         res.redirect('/admin/products');
     } catch (error) {
         console.log(error);
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -526,7 +561,9 @@ const deleteProduct = async (req, res) => {
         const userData = await Product.findByIdAndUpdate({ _id: id }, { $set: { list: false } });
         res.redirect("/admin/products")
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -537,7 +574,9 @@ const deletedProductsPage = async (req, res) => {
         const category=await Category.find({list:true})
         res.render("deletedProducts", { product: product ,category:category})
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -548,7 +587,9 @@ const addFromDelete = async (req, res) => {
         const userData = await Product.findByIdAndUpdate({ _id: id }, { $set: { list: true } });
         res.redirect("/admin/products/deletedProducts")
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -573,19 +614,25 @@ const addFromDelete = async (req, res) => {
 const deleteImage = async (req, res) => {
     const category = await Category.find({});
     const brands = await Brand.find({});
-    const imgId = req.params.imgId;
+    
 
     try {
+        const imgId = req.params.imgId;
         const product = await Product.findOne({ "images._id": imgId });
+        console.log(imgId);
         if (!product) {
-            return res.status(404).send('Image not found');
+             const statusCode = 404;
+            const errorMessage = "Image not found";
+            return res.status(statusCode).render('errorPage', { statusCode, errorMessage });
         }
         product.images = product.images.filter(image => image._id.toString() !== imgId);
         await product.save();
         res.redirect(`/admin/products/edit/${product._id}`);
     } catch (error) {
         console.log(error.message);
-        res.status(500).send('Internal Server Error');
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 };
 
@@ -615,7 +662,9 @@ const usersShowPage = async (req, res) => {
         let pageLimit=Math.ceil(users.length/limit)
         res.render("userList", { user: user,page,pageLimit })
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -627,7 +676,9 @@ const usersStatusBlock = async (req, res) => {
         res.redirect("/admin/users?page=1")
 
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -639,7 +690,9 @@ const usersStatusUnblock = async (req, res) => {
         res.redirect("/admin/users?page=1")
 
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -667,7 +720,9 @@ const brandsShowPage = async (req, res) => {
         const brandData = await Brand.find({}).skip(skip).limit(limit)
         res.render("brands", { brandData: brandData,page,pageLimit })
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -677,7 +732,9 @@ const addBrandPage = async (req, res) => {
     try {
         res.render("addNewBrand")
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -754,7 +811,9 @@ const addBrand = async (req, res) => {
         }
     } catch (error) {
         console.log("Error in addBrand function:", error.message);
-        res.status(500).render("brands", { message: "Internal Server Error , try once again !", error: error.message,brandData:brandData });
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 };
 
@@ -765,7 +824,9 @@ const brandsEditPage = async (req, res) => {
         const data = await Brand.findOne({ _id: id })
         res.render("editBrand", { brandData: data })
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -797,7 +858,9 @@ const brandsEdit = async (req, res) => {
 
 
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -810,7 +873,9 @@ const deleteBrand = async (req, res) => {
         const deleted = await Brand.deleteOne({ _id: id })
         res.redirect("/admin/brands")
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -847,7 +912,9 @@ const orderDetailsPage=async (req,res)=>{
         let pageLimit=Math.ceil(orders.length/limit)
         res.render("orderManagement",{order:order,page,pageLimit})
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -870,7 +937,9 @@ const editOrderPage=async (req,res)=>{
             console.log(orderDetails);
         res.render("orderDetails",{addressData:addressData,order:order,productData:productData,items:orderDetails.items,deliveryDate:deliveryDate,orderedDate:orderedDate})
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -945,7 +1014,9 @@ const updateOrder=async (req,res)=>{
         }
         res.redirect("/admin/orders?page=1")
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -983,8 +1054,10 @@ const approveReturn=async (req,res)=>{
             res.redirect("/admin/orders?page=1")
         }
     } catch (error) {
-        console.log(error,"222222");
-        res.status(500).send("Internal Server Error");
+        console.log(error);
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -998,7 +1071,9 @@ const rejectReturn=async (req,res)=>{
             res.redirect("/admin/orders?page=1")
         }
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -1025,7 +1100,9 @@ const couponManagementPage=async (req,res)=>{
 
         res.render("couponManagement",{couponDetails:couponDetails,page,pageLimit})
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -1068,7 +1145,9 @@ const addCoupon=async (req,res)=>{
         }
         
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -1087,7 +1166,9 @@ const editCoupon=async (req,res)=>{
                 res.redirect("/admin/coupons?page=1")
             }
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -1097,10 +1178,13 @@ const deleteCoupon=async (req,res)=>{
         const id=req.query.id
          let deleted=await Coupon.deleteOne({_id:id})
         if(deleted){
+            console.log("not deleted");
             res.redirect("/admin/coupons?page=1")
         }
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -1247,7 +1331,9 @@ const fetchDataGraph = async (req, res) => {
         
     } catch (error) {
         console.log(error);
-        res.status(500).send("An error occurred while fetching data.");
+        const statusCode = 500;
+        const errorMessage = "An error occured while fetching the data";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 };
 
@@ -1274,7 +1360,9 @@ const excelDownload = async (req, res) => {
         })
         .catch((err) => {
             console.error('Error generating Excel:', err);
-            res.status(500).send('Error generating Excel');
+            const statusCode = 500;
+        const errorMessage = "Error generating on excel download";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
         });
 };
 
@@ -1572,7 +1660,9 @@ const salesFilter = async (req, res) => {
         res.render("salesReport",{order:order,startDate,endDate,page,pageLimit})
     } catch (error) {
         console.log(error);
-        res.status(500).send('Error filtering sales');
+        const statusCode = 500;
+        const errorMessage = "Error filtering sales";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -1589,7 +1679,9 @@ const bannerPage=async (req,res)=>{
         res.render("banner",{banner,page,pageLimit})
     } catch (error) {
         console.log(error);
-        res.status(500).send('No Banner Page')
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 
@@ -1638,7 +1730,9 @@ const addBanner=async (req,res)=>{
        }
     } catch (error) {
         console.log(error);
-        res.status(500).send("Banner Adding failed")
+        const statusCode = 500;
+        const errorMessage = "Internal Server Error";
+        res.status(statusCode).render('errorPage', { statusCode, errorMessage });
     }
 }
 

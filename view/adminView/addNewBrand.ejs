@@ -122,23 +122,26 @@
                             <h4>BRAND DETAILS</h4>
                         </div>
                         <div class="card-body">
-                            <form action="" method="post" enctype="multipart/form-data">
+                            <form action="" method="post" onsubmit="return checkCoupon()" enctype="multipart/form-data">
                                 <div class="mb-4">
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <label for="brand_name" class="form-label">Brand title</label>
                                             <input type="text" placeholder="Type here" class="form-control"
-                                                id="brand_name" name="brand_name">
+                                                id="h1" name="brand_name">
+                                                <div id="errorh1" style="color: red;"></div>
                                         </div>
                                         <div class="col-lg-4">
                                             <label for="brand_description" class="form-label">Brand Description</label>
                                             <input type="text" placeholder="Type here" class="form-control"
-                                                id="brand_description" name="brand_description">
+                                                id="cdisc" name="brand_description">
+                                                <div id="errordisc" style="color: red;"></div>
                                         </div>
 
                                         <div class="col-lg-4">
                                             <label for="image" class="form-label">Image</label>
                                             <input class="form-control form-control-lg" type="file" name="image">
+                                            <div id="errorImage" style="color: red;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -159,6 +162,98 @@
         </section> <!-- content-main end// -->
         
     </main>
+
+    <script>
+        const imageInput = document.querySelector('input[type="file"]');
+    const imageError = document.getElementById('errorImage');
+
+const discription = document.getElementById('cdisc');
+const discerror = document.getElementById('errordisc');  
+
+const h1input = document.getElementById('h1')
+const h1inputerror = document.getElementById('errorh1')
+
+
+
+
+
+discription.addEventListener('input', () => {
+ var val = discription.value;
+ const isValid = validatedisc(val);
+});
+
+h1input.addEventListener('input', () => {
+ var val = h1input.value;
+ const isValid = validateh1(val);
+});
+
+
+
+imageInput.addEventListener('change', () => {
+        const isValid = validateImage(imageInput);
+    });
+
+    function validateImage(input) {
+        const file = input.files[0];
+        if (!file) {
+            imageError.textContent = "Please select an image";
+            return false;
+        } else {
+            imageError.textContent = "";
+            return true;
+        }
+    }
+
+
+
+
+function validatedisc(name) {
+ if (name.trim().length < 1) {
+     discerror.textContent = "Discription cannot be empty"
+     return false
+ }
+
+ discerror.textContent = ""
+ return true
+ }
+
+
+
+
+ function validateh1(name) {
+ if (name.trim().length < 1) {
+     h1inputerror.textContent = "heading cannot be empty"
+     return false
+ }
+ if (!nameRegex.test(name.trim())) {
+     h1inputerror.textContent = "Enter a valid heading"
+     return false
+ }
+ h1inputerror.textContent = ""
+ return true
+ }
+
+
+
+
+ 
+
+
+
+
+
+ function checkCoupon(){
+     let discValid = validatedisc(discription.value)
+     let h1valid   = validateh1(h1input.value)
+     let imageValid = validateImage(imageInput);
+
+     if (discValid && h1valid && imageValid) {
+     return true
+ } else {
+     return false
+ }
+ }
+    </script>
     <script src="/admin-assets/js/vendors/jquery-3.6.0.min.js"></script>
     <script src="/admin-assets/js/vendors/bootstrap.bundle.min.js"></script>
     <script src="/admin-assets/js/vendors/select2.min.js"></script>

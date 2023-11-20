@@ -413,7 +413,7 @@
     }).then((result) => {
         if (result.isConfirmed) {
             // If the user confirms, proceed with the deletion
-            window.location.href = `/couponManagement/delete?id=${id}`;
+            window.location.href = `/admin/couponManagement/delete?id=${id}`;
         }else{
             return false
         }
