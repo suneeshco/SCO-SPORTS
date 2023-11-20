@@ -245,6 +245,7 @@
         const nameInput = document.getElementById('product_name');
         const descriptionInput = document.getElementById('description');
         const regularPriceInput = document.getElementById('regularPrice');
+        const size=document.getElementById('size')
         const stockInput = document.getElementById('stock');
         const submitButton = document.getElementById('addProductButton')
         const productDiscount=document.getElementById('productDiscount')
@@ -253,9 +254,15 @@
         const nameInputError = document.getElementById('errorName');
         const descriptionInputError = document.getElementById('errorDescription');
         const regularPriceInputError = document.getElementById('errorRegularPrice');
-       
+       const errorSize=document.getElementById('errorSize')
         const stockInputError = document.getElementById('errorStock');
         const errorDiscount=document.getElementById('errorDiscount')
+
+
+        size.addEventListener('input',()=>{
+            const val=size.value
+            const isValid= validateSize(val)
+        })
 
 
 
@@ -317,6 +324,24 @@
             return true;
         }
     }
+
+    function validateSize(val){
+            if(val.trim().length < 1){
+                errorSize.textContent=" cannot be empty"
+                return false
+            }
+            if(isNaN(val.trim())){
+                errorSize.textContent="should be number"
+                return false
+            }
+            if(val<1 || val >15){
+                errorSize.textContent="should be a valid size"
+                return false
+            }
+            errorSize.textContent=""
+            return true
+        }
+
 
         function validateName(name){
             if(name.trim().length < 1){
@@ -399,11 +424,11 @@
             let descriptionIsValid = validateDescription(descriptionInput.value);
             let regularPriceIsValid = validateRegularPrice(regularPriceInput.value);
             let imageValid = validateImage(imageInput);
-            
+            let sizeValid= validateSize(size.value)
             let stockIsValid = validateStock(stockInput.value);
             let discountValid=validateDiscount(productDiscount.value)
         
-            if (nameIsValid && descriptionIsValid && regularPriceIsValid && stockIsValid && discountValid && imageValid) {
+            if (nameIsValid && descriptionIsValid && regularPriceIsValid && stockIsValid && discountValid && imageValid && sizeValid) {
                 return true
             } else {
                 return false
