@@ -216,6 +216,7 @@
                                 <div class="input-upload">
                                     <img src="/admin-assets/imgs/theme/upload.svg" alt="">
                                     <input type="file" class="form-control" name="productImages" id="images" multiple>
+                                    <div id="errorImage" style="color: red;"></div>
                                 </div>
                             </div>
                         </div> <!-- card end// -->
@@ -237,6 +238,9 @@
     <script src="/admin-assets/js/main.js" type="text/javascript"></script>
 
     <script>
+
+    const imageInput = document.querySelector('input[type="file"]');
+    const imageError = document.getElementById('errorImage');
 
         const nameInput = document.getElementById('product_name');
         const descriptionInput = document.getElementById('description');
@@ -298,6 +302,21 @@
             
         });
 
+
+        imageInput.addEventListener('change', () => {
+        const isValid = validateImage(imageInput);
+    });
+
+    function validateImage(input) {
+        const file = input.files[0];
+        if (!file) {
+            imageError.textContent = "Please select an image";
+            return false;
+        } else {
+            imageError.textContent = "";
+            return true;
+        }
+    }
 
         function validateName(name){
             if(name.trim().length < 1){
@@ -379,11 +398,12 @@
             let nameIsValid = validateName(nameInput.value);
             let descriptionIsValid = validateDescription(descriptionInput.value);
             let regularPriceIsValid = validateRegularPrice(regularPriceInput.value);
+            let imageValid = validateImage(imageInput);
             
             let stockIsValid = validateStock(stockInput.value);
             let discountValid=validateDiscount(productDiscount.value)
         
-            if (nameIsValid && descriptionIsValid && regularPriceIsValid && stockIsValid && discountValid) {
+            if (nameIsValid && descriptionIsValid && regularPriceIsValid && stockIsValid && discountValid && imageValid) {
                 return true
             } else {
                 return false
