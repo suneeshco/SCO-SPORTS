@@ -379,7 +379,7 @@ const addProductPage = async (req, res) => {
 const productShowPage = async (req, res) => {
     try {
 
-        let limit=6
+        let limit=10
         let page=req.query.page
         let pageNumber=page ? parseInt(page) : 1
         let skip=(pageNumber - 1) * limit
@@ -454,7 +454,7 @@ const addProduct = async (req, res) => {
         const result=await newProduct.save()
 
         if (result) {
-            res.redirect("/admin/products")
+            res.redirect("/admin/products?page=1")
         } else {
             const statusCode = 500;
         const errorMessage = "Internal Server Error";
@@ -544,7 +544,7 @@ const editProduct = async (req, res) => {
             }
             
         );
-        res.redirect('/admin/products');
+        res.redirect('/admin/products?page=1');
     } catch (error) {
         console.log(error);
         const statusCode = 500;
