@@ -348,6 +348,10 @@
                 nameInputError.textContent="Name cannot be empty"
                 return false
             }
+            if(name.trim().length > 10){
+                nameInputError.textContent="Name should not exceed 10 characters"
+                return false
+            }
             nameInputError.textContent=""
             return true
         }

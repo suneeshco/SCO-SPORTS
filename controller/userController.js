@@ -260,6 +260,7 @@ const sendOtpLogin = async (req, res) => {
                 pass: process.env.USER_PASSWORD
             }
         });
+        console.log(process.env.USER_NAME,process.env.USER_PASSWORD);
         const mailOptions = {
             from: process.env.USER_NAME,
             to: email,

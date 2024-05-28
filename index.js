@@ -1,10 +1,11 @@
 const mongoose=require("mongoose")
-mongoose.connect("mongodb+srv://suneeshcotkm:dcoE7k8JAPEgLfdG@scosportsdb.90xhjll.mongodb.net/shopping?retryWrites=true&w=majority")
+require('dotenv').config()
+mongoose.connect(`${process.env.MONGO_URL}`)
 
 const userRoute=require("./routes/userRoute")
 const adminRoute=require("./routes/AdminRoute")
 
-require('dotenv').config()
+
 
 const port=process.env.PORT
 
